@@ -1,0 +1,60 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+
+  /* Brand Colors */
+  --teal: #0d9488;
+  --teal-dark: #134e4a;
+  --sage: #f0fdf4;
+  --stone: #57534e;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /* Map fonts */
+  --font-serif: var(--font-merriweather);
+  --font-sans: var(--font-inter);
+
+  /* Map brand colors to semantic names or direct overrides */
+  --color-primary: #0d9488;
+  --color-secondary: #134e4a;
+  --color-accent: #f0fdf4;
+
+  /* Direct color utilities mapping old names to new teal theme for compatibility */
+  --color-navy: #134e4a;
+  /* Check this mapping */
+  --color-gold: #0d9488;
+  --color-pale-yellow: #f0fdf4;
+
+  /* Additional standard colors */
+  --color-teal-600: #0d9488;
+  --color-teal-900: #134e4a;
+  --color-teal-50: #f0fdf4;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-serif);
+}

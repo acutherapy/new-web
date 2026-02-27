@@ -1,0 +1,1637 @@
+"use client";
+
+import React, { createContext, useContext, useState, useEffect } from "react";
+
+type Language = "EN" | "JA" | "ZH";
+
+type Translations = {
+    [key in Language]: {
+        hero: {
+            headline: string;
+            subheadline: string;
+            cta: string;
+            explore: string;
+        };
+        nav: {
+            home: string;
+            conditions: string;
+            services: string;
+            about: string;
+            contact: string;
+            blog: string;
+            successStory: string;
+            whoWeHelp: string;
+            locations: string;
+        };
+        footer: {
+            brand: {
+                title: string;
+                subtitle: string;
+                description: string;
+            };
+            quickLinks: {
+                title: string;
+                backNeck: string;
+                stressAnxiety: string;
+                autoInjury: string;
+                ptsdVeterans: string;
+                workInjury: string;
+            };
+            services: {
+                title: string;
+                acupuncture: string;
+                massage: string;
+                cupping: string;
+                insurance: string;
+            };
+            contact: {
+                title: string;
+                address: string;
+                fax: string;
+            };
+            legal: {
+                rights: string;
+                privacy: string;
+                terms: string;
+                sitemap: string;
+            };
+        };
+        sections: {
+            patients: {
+                title: string;
+                subtitle: string;
+                learnMore: string;
+                auto: { title: string; description: string };
+                work: { title: string; description: string };
+                vets: { title: string; description: string };
+                medicare: { title: string; description: string };
+            };
+            conditions: {
+                title: string;
+                subtitle: string;
+                viewAll: string;
+                learnMore: string;
+                items: {
+                    backNeck: { title: string; description: string };
+                    stressAnxiety: { title: string; description: string };
+                    ptsdTrauma: { title: string; description: string };
+                };
+            };
+            services: {
+                title: string;
+                acupuncture: string;
+                massage: string;
+                cupping: string;
+                insurance: string;
+            };
+            symptom: {
+                title: string;
+                subtitle: string;
+                placeholder: string;
+                button: string;
+            };
+        };
+        pages: {
+            about: {
+                title: string;
+                subtitle: string;
+                backHome: string;
+                philosophy: {
+                    title: string;
+                    content1: string;
+                    content2: string;
+                };
+                team: {
+                    title: string;
+                    jane: { role: string; bio: string; };
+                    john: { role: string; bio: string; };
+                    sarah: { role: string; bio: string; };
+                    shuKai: { role: string; bio: string; };
+                    choonKia: { role: string; bio: string; };
+                };
+                visit: {
+                    title: string;
+                    hours: { title: string; monFri: string; sat: string; sun: string; };
+                    book: string;
+                };
+            };
+            contact: {
+                title: string;
+                getInTouch: string;
+                clinicLocation: string;
+                phoneFax: string;
+                email: string;
+                hours: string;
+                bookOnline: string;
+            };
+            whoWeHelp: {
+                title: string;
+                subtitle: string;
+                veterans: { title: string; desc: string; link: string; };
+                auto: { title: string; desc: string; link: string; };
+                work: { title: string; desc: string; link: string; };
+                medicare: { title: string; desc: string; link: string; };
+                chronic: { title: string; desc: string; link: string; };
+                cta: { title: string; button: string; };
+            };
+            insurance: {
+                title: string;
+                subtitle: string;
+                accepted: string;
+                verifyNote: string;
+                noFault: { title: string; desc: string; list1: string; list2: string; };
+                workComp: { title: string; desc: string; list1: string; list2: string; };
+                selfPay: { title: string; service: string; rate: string; initial: string; followUp: string; massage: string; cupping: string; };
+                checkInsurance: string;
+            };
+            successStories: {
+                title: string;
+                subtitle: string;
+                cta: { title: string; subtitle: string; button: string; };
+                testimonials: {
+                    backPain: { text: string; category: string; };
+                    anxiety: { text: string; category: string; };
+                    auto: { text: string; category: string; };
+                    wellness: { text: string; category: string; };
+                };
+            };
+            blog: {
+                title: string;
+                subtitle: string;
+                readArticle: string;
+                posts: {
+                    backPain: { title: string; excerpt: string; category: string; content: string; };
+                    stress: { title: string; excerpt: string; category: string; content: string; };
+                    cupping: { title: string; excerpt: string; category: string; content: string; };
+                };
+            };
+            servicesPage: {
+                title: string;
+                subtitle: string;
+                items: {
+                    acupuncture: { title: string; desc: string; };
+                    massage: { title: string; desc: string; };
+                    cupping: { title: string; desc: string; };
+                    carePlans: { title: string; desc: string; };
+                };
+                learnMore: string;
+            };
+            conditionsPage: {
+                title: string;
+                subtitle: string;
+                items: {
+                    backNeck: { title: string; desc: string; };
+                    stress: { title: string; desc: string; };
+                    ptsd: { title: string; desc: string; };
+                };
+                cta: { title: string; text: string; button: string; };
+            };
+            book: {
+                title: string;
+                subtitle: string;
+                steps: { personal: string; symptoms: string; success: string; type: string; };
+                form: {
+                    name: string;
+                    email: string;
+                    phone: string;
+                    reason: string;
+                    reasonPlaceholder: string;
+                    time: string;
+                    timePlaceholder: string;
+                    morning: string;
+                    afternoon: string;
+                    evening: string;
+                    honolulu: string;
+                    aiea: string;
+                    back: string;
+                    next: string;
+                    submit: string;
+                    submitting: string;
+                    newPatient: string;
+                    newPatientDesc: string;
+                    returningPatient: string;
+                    returningPatientDesc: string;
+                    bookOnline: string;
+                    contactMethod: string;
+                    phoneMethod: string;
+                    textMethod: string;
+                    emailMethod: string;
+                    selectLocation: string;
+                };
+                success: {
+                    message: string;
+                    backHome: string;
+                };
+            };
+            // Service Subpages
+            acupuncturePage: {
+                title: string;
+                backLink: string;
+                intro: string;
+                expect: { title: string; text: string; };
+                styles: { title: string; tcm: string; trigger: string; japanese: string; };
+                faq: { title: string; text: string; };
+                cta: string;
+            };
+            massagePage: {
+                title: string;
+                backLink: string;
+                intro: string;
+                conditions: { title: string; auto: string; rsi: string; sports: string; back: string; };
+                techniques: { title: string; text: string; };
+                cta: { title: string; button: string; };
+            };
+            cuppingPage: {
+                title: string;
+                backLink: string;
+                intro: string;
+                benefits: { title: string; pain: string; antiInflam: string; flow: string; calm: string; };
+                marks: { title: string; text: string; };
+                combinedText: string;
+                ctaButton: string;
+            };
+            // Condition Subpages
+            autoInjuryPage: {
+                title: string;
+                backLink: string;
+                intro: string;
+                insurance: { title: string; text: string; };
+                common: { title: string; whiplash: string; back: string; headaches: string; shoulder: string; };
+                cta: { title: string; button: string; };
+            };
+            workersCompPage: {
+                title: string;
+                backLink: string;
+                intro: string;
+                insurance: { title: string; text: string; };
+                common: { title: string; strains: string; back: string; carpal: string; slip: string; };
+                cta: { title: string; button: string; };
+            };
+            ptsdPage: {
+                title: string;
+                backLink: string;
+                intro: string;
+                approach: { title: string; text: string; };
+                va: { title: string; text: string; };
+                cta: { title: string; button: string; };
+            };
+            stressPage: {
+                title: string;
+                backLink: string;
+                intro: string;
+                benefits: { title: string; relax: string; sleep: string; heart: string; focus: string; };
+                cta: { title: string; button: string; };
+            };
+            backPainPage: {
+                title: string;
+                backLink: string;
+                intro: string;
+                how: { title: string; acu: string; cup: string; electro: string; };
+                common: { title: string; sciatica: { title: string; desc: string; }; whiplash: { title: string; desc: string; }; };
+                cta: { title: string; text: string; button: string; };
+            };
+            privacyPage: {
+                title: string;
+                lastUpdated: string;
+                intro: string;
+                sections: { heading: string; content: string; }[];
+            };
+            termsPage: {
+                title: string;
+                lastUpdated: string;
+                intro: string;
+                sections: { heading: string; content: string; }[];
+            };
+            sitemapPage: {
+                title: string;
+                subtitle: string;
+            };
+            locations: {
+                title: string;
+                honolulu: {
+                    name: string;
+                    address: string;
+                    phone: string;
+                    fax: string;
+                    parking: string;
+                    mapLink: string;
+                    hours: string;
+                };
+                aiea: {
+                    name: string;
+                    address: string;
+                    phone: string;
+                    fax: string;
+                    parking: string;
+                    mapLink: string;
+                    hours: string;
+                };
+            };
+            reviews: {
+                title: string;
+                ratingLabel: string;
+                list: {
+                    text: string;
+                    author: string;
+                    source: string;
+                    rating: number;
+                    categories: string[];
+                }[];
+            };
+        };
+    };
+};
+
+const translations: Translations = {
+    EN: {
+        hero: {
+            headline: "Restore Balance, Relieve Pain.",
+            subheadline: "Expert Acupuncture and Holistic Medicine in Honolulu. We specialize in treating chronic pain, stress, and helping you regain your vitality.",
+            cta: "Book an Appointment",
+            explore: "Explore Services",
+        },
+        nav: {
+            home: "Home",
+            conditions: "Conditions",
+            services: "Services",
+            about: "About",
+            contact: "Contact",
+            blog: "Blog",
+            successStory: "Success Stories",
+            whoWeHelp: "Who We Help",
+            locations: "Locations"
+        },
+        footer: {
+            brand: {
+                title: "AcuTherapy",
+                subtitle: "Clinics",
+                description: "Holistic healing combining ancient wisdom with modern science. Specializing in pain relief, stress management, and comprehensive care."
+            },
+            quickLinks: {
+                title: "Conditions",
+                backNeck: "Back & Neck Pain",
+                stressAnxiety: "Stress & Anxiety",
+                autoInjury: "Car Accidents",
+                ptsdVeterans: "PTSD & Veterans",
+                workInjury: "Worker's Injury"
+            },
+            services: {
+                title: "Services",
+                acupuncture: "Acupuncture",
+                massage: "Medical Massage",
+                cupping: "Cupping Therapy",
+                insurance: "Insurance & Payment"
+            },
+            contact: {
+                title: "Contact Us",
+                address: "1650 Liliha St, Suite 208, Honolulu, HI 96817",
+                fax: "Fax: (808) 212-9459"
+            },
+            legal: {
+                rights: "All rights reserved.",
+                privacy: "Privacy Policy",
+                terms: "Terms of Service",
+                sitemap: "Sitemap"
+            }
+        },
+        sections: {
+            patients: {
+                title: "Patients We Serve",
+                subtitle: "Our clinic focuses on providing specialized care for specific communities and needs.",
+                learnMore: "Learn more",
+                auto: {
+                    title: "Auto Injury",
+                    description: "Specialized care for whiplash and accident recovery. We handle all No-Fault insurance paperwork."
+                },
+                work: {
+                    title: "Worker's Injury",
+                    description: "Comprehensive rehabilitation for work-related injuries. We work directly with Worker's Comp."
+                },
+                vets: {
+                    title: "Veterans",
+                    description: "Proud VA Community Care provider. Treating PTSD, chronic pain, and service-related conditions."
+                },
+                medicare: {
+                    title: "Medicare & Self-Pay",
+                    description: "Accessible care for everyone. We accept Medicare and offer transparent self-pay rates."
+                }
+            },
+            conditions: {
+                title: "Conditions We Treat",
+                subtitle: "We provide specialized care for a wide range of physical and emotional health challenges.",
+                viewAll: "View all conditions treated",
+                learnMore: "Learn more",
+                items: {
+                    backNeck: {
+                        title: "Back & Neck Pain",
+                        description: "Relief from chronic sciatica, stiff neck, and lower back strain using targeted acupuncture."
+                    },
+                    stressAnxiety: {
+                        title: "Stress & Anxiety",
+                        description: "Calm your nervous system and restore emotional balance with holistic stress reduction techniques."
+                    },
+                    ptsdTrauma: {
+                        title: "PTSD & Trauma",
+                        description: "Specialized care for veterans and trauma survivors helps process emotional and physical tension."
+                    }
+                }
+            },
+            services: {
+                title: "Services",
+                acupuncture: "Acupuncture",
+                massage: "Medical Massage",
+                cupping: "Cupping Therapy",
+                insurance: "Insurance & Payment"
+            },
+            symptom: {
+                title: "AI Symptom Checker",
+                subtitle: "Not sure where to start? Describe your symptoms, and our AI assistant will recommend the best treatment plan for you.",
+                placeholder: "e.g., 'Sharp lower back pain when sitting' or 'Constant headaches'",
+                button: "Analyze"
+            }
+        },
+        pages: {
+            about: {
+                title: "About AcuTherapy",
+                subtitle: "We are dedicated to bridging the gap between ancient healing wisdom and modern medical science. Our clinic provides a sanctuary for healing in the heart of Honolulu.",
+                backHome: "Back to Home",
+                philosophy: {
+                    title: "Our Philosophy",
+                    content1: "We believe that true health is not just the absence of disease, but the presence of vitality. Our approach is holistic, treating the whole person—body, mind, and spirit—rather than just chasing symptoms.",
+                    content2: "Whether you are recovering from an auto accident, managing chronic pain, or seeking stress relief, we customize every treatment plan to your unique constitution."
+                },
+                team: {
+                    title: "Meet Our Team",
+                    jane: { role: "Lead Acupuncturist/L.Ac., L.M.T., O.M.D.", bio: "Having graduated from the Beijing University of TCM, Dr. David Cai spent the last 25 years perfecting a blend of traditional & modern medicine to combine the best of both worlds, creating a unique pain management system. He specializes in injury recovery, pain management and herbal remedies." },
+                    john: { role: "O.M.D., L.M.T.", bio: "Lisa Long, O.M.D., L.M.T. is a licensed massage therapist with over 15 years of clinical experience in acupuncture and therapeutic massage. She graduated from Jin Hua College of Beijing University of Chinese Medicine and received advanced training under renowned Chinese medicine physicians. Lisa has practiced at AcuTherapy Clinics in Hawaii since 2014, specializing in pain relief, rehabilitation, and weight loss." },
+                    sarah: { role: "O.T., Patient Care Manager", bio: "Anne has years of patient care and client relations experience, and is devoted to ensuring and overseeing the daily operations of the clinics." },
+                    shuKai: { role: "Rehabilitation Specialist/O.M.D., L.Ac.", bio: "ShuKai grew up with Traditional Chinese Medicine in his native country of Taiwan. His ability to grasp Eastern and Western technicalities provides him with a unique recovery skill set. Certification: NCAA Certified" },
+                    choonKia: { role: "M.D.", bio: "Choon Kia Yeo, MD, is a physician and surgeon, certified by the American Board of Surgery and the Royal College of Physicians and Surgeons of Canada. A member of the American Academy of Anti-Aging Medicine, he has practiced medicine in Hawai'i for over 50 years." }
+                },
+                visit: {
+                    title: "Visit Us",
+                    hours: { title: "Hours", monFri: "Monday - Friday", sat: "Saturday", sun: "Sunday" },
+                    book: "Book Appointment"
+                }
+            },
+            contact: {
+                title: "Contact Us",
+                getInTouch: "Get in Touch",
+                clinicLocation: "Clinic Location",
+                phoneFax: "Phone & Fax",
+                email: "Email",
+                hours: "Hours of Operation",
+                bookOnline: "Book an Appointment Online"
+            },
+            whoWeHelp: {
+                title: "Who We Help",
+                subtitle: "Our clinic is a sanctuary for anyone seeking healing, but we have specialized experience working with these communities.",
+                veterans: { title: "Veterans", desc: "We are proud to serve those who served. As a VA Community Care provider, we offer specialized treatments for PTSD, chronic pain, and combat-related injuries.", link: "Learn about VA Benefits" },
+                auto: { title: "Auto Accident Victims", desc: "Recovering from a car accident can be overwhelming. We handle all No-Fault insurance paperwork and provide comprehensive care for whiplash and structural injuries.", link: "View Insurance Info" },
+                work: { title: "Worker's Injury", desc: "Injured on the job? We specialize in worker's compensation cases, helping you recover quickly and return to work safely. We communicate directly with your case manager.", link: "Worker's Comp Details" },
+                medicare: { title: "Medicare & Self-Pay", desc: "We believe healing should be accessible. We accept Medicare for eligible treatments and offer transparent, affordable rates for self-pay patients.", link: "View Pricing & Plans" },
+                chronic: { title: "Chronic Pain Warriors", desc: "For those who have 'tried everything' without success. We look deeper to find the root cause of your pain, offering hope when others have given up.", link: "Explore Pain Treatments" },
+                cta: { title: "Ready for a new approach?", button: "Book Your Appointment" }
+            },
+            insurance: {
+                title: "Insurance & Payment Options",
+                subtitle: "We believe quality care should be accessible. We accept most major insurance plans and offer transparent pricing for self-pay patients.",
+                accepted: "Accepted Insurance Plans",
+                verifyNote: "*Verification of benefits is required before your first appointment. Please bring your insurance card.",
+                noFault: { title: "No-Fault (Auto Accidents)", desc: "If you were injured in a car accident, your treatment may be 100% covered by auto insurance with no out-of-pocket cost to you.", list1: "We handle all the billing paperwork.", list2: "Comprehensive care for whiplash and back pain." },
+                workComp: { title: "Workers' Compensation", desc: "Injured on the job? We are authorized providers for Workers' Comp cases in Hawaii.", list1: "Focus on return-to-work rehabilitation.", list2: "Requires open claim number and physician referral." },
+                selfPay: { title: "Self-Pay Rates (Time of Service)", service: "Service", rate: "Rate", initial: "Initial Acupuncture Visit", followUp: "Follow-up Acupuncture", massage: "Medical Massage", cupping: "Cupping Therapy" },
+                checkInsurance: "Check Your Insurance"
+            },
+            successStories: {
+                title: "Real Stories, Real Healing",
+                subtitle: "See how our holistic treatments have helped patients regain their health and vitality.",
+                cta: { title: "Start Your Own Success Story", subtitle: "Ready to experience the benefits of acupuncture and holistic medicine? Book your initial consultation today.", button: "Book Appointment" },
+                testimonials: {
+                    backPain: { text: "I suffered from chronic lower back pain for 5 years. After just 3 sessions of acupuncture and cupping, I felt a significant release of tension. I'm now hiking again!", category: "Back Pain" },
+                    anxiety: { text: "AcuTherapy has been a lifesaver for my anxiety. The clinic is so peaceful, and Dr. Doe really listens. I leave every session feeling grounded and calm.", category: "Stress & Anxiety" },
+                    auto: { text: "The team handled all my no-fault insurance paperwork after my car accident. Typical whiplash symptoms were gone in weeks thanks to their medical massage therapy.", category: "Auto Injury" },
+                    wellness: { text: "I come once a month for maintenance. It keeps my immune system strong and my energy levels high. Highly recommend the holistic care plans.", category: "General Wellness" }
+                }
+            },
+            blog: {
+                title: "Health & Wellness Blog",
+                subtitle: "Tips, news, and insights from our holistic health experts.",
+                readArticle: "Read Article",
+                posts: {
+                    backPain: {
+                        title: "5 Way Acupuncture Relieves Chronic Back Pain",
+                        excerpt: "Discover how targeted needle therapy can reduce inflammation and trigger your body's natural painkillers.",
+                        category: "Pain Relief",
+                        content: "Chronic back pain is one of the most common reasons people seek acupuncture. Unlike medication which often masks pain, acupuncture targets the root cause.\n\nHere are 5 ways it helps:\n1. Reduces Inflammation: Needling triggers the release of cortisol, a natural anti-inflammatory.\n2. Releases Endorphins: It stimulates the body's natural pain-killing chemicals.\n3. Improves Circulation: Enhanced blood flow brings nutrients to injured tissues.\n4. Relaxes Muscles: It physically releases tight trigger points.\n5. Resets the Nervous System: It shifts the body from 'fight or flight' to 'rest and digest' mode.\n\nIf you're struggling with back pain, consider a series of treatments to see long-lasting results."
+                    },
+                    stress: {
+                        title: "Natural Ways to Manage Stress & Anxiety",
+                        excerpt: "From mindful breathing to herbal tea, learn holistic strategies to keep your nervous system in balance.",
+                        category: "Mental Health",
+                        content: "Stress is an unavoidable part of modern life, but how we manage it makes all the difference. Chronic stress can lead to physical health issues like high blood pressure and digestive problems.\n\nHolistic strategies include:\n- **Mindful Breathing**: Taking 5 minutes a day to focus on your breath can lower cortisol levels.\n- **Acupuncture**: Regular sessions help regulate the autonomic nervous system.\n- **Herbal Medicine**: Adaptogens like Ashwagandha can help the body resist stressors.\n- **Sleep Hygiene**: Prioritizing 7-8 hours of sleep allows the brain to process emotions.\n\nSmall changes in your daily routine can have a massive impact on your mental well-being."
+                    },
+                    cupping: {
+                        title: "What is Cupping Therapy? A Beginner's Guide",
+                        excerpt: "Everything you need to know about those circular marks tailored celebrities are showing off.",
+                        category: "Education",
+                        content: "You've likely seen the circular marks on athletes and celebrities. But what exactly is cupping?\n\nCupping therapy is an ancient form of alternative medicine in which a therapist puts special cups on your skin for a few minutes to create suction. People get it for many purposes, including to help with pain, inflammation, blood flow, relaxation and well-being, and as a type of deep-tissue massage.\n\nThe cups may be made of:\n- Glass\n- Bamboo\n- Earthenware\n- Silicone\n\nThe suction force expands the capillaries and increases the amount of fluid entering and leaving tissues. It's like a reverse massage - instead of pushing down, it pulls up!"
+                    }
+                }
+            },
+            servicesPage: {
+                title: "Our Services",
+                subtitle: "We offer a comprehensive range of holistic therapies designed to heal the body, mind, and spirit.",
+                items: {
+                    acupuncture: { title: "Acupuncture", desc: "Traditional Chinese Medicine techniques to balance energy and relieve pain." },
+                    massage: { title: "Medical Massage", desc: "Therapeutic massage focused on resolving specific musculoskeletal issues." },
+                    cupping: { title: "Cupping Therapy", desc: "Ancient suction technique to improve circulation and reduce inflammation." },
+                    carePlans: { title: "Holistic Care Plans", desc: "Comprehensive treatment plans tailored to your long-term health goals." }
+                },
+                learnMore: "Learn more"
+            },
+            conditionsPage: {
+                title: "Conditions We Treat",
+                subtitle: "We specialize in treating chronic pain, stress-related disorders, and complex health conditions using a blend of ancient wisdom and modern science.",
+                items: {
+                    backNeck: { title: "Back & Neck Pain", desc: "Relief for sciatica, herniated discs, and chronic muscle tension." },
+                    stress: { title: "Stress & Anxiety", desc: "Regulate your nervous system and find calm with holistic care." },
+                    ptsd: { title: "PTSD & Veterans", desc: "Specialized care for trauma recovery and nervous system regulation." }
+                },
+                cta: { title: "Don't see your condition?", text: "We treat a wide range of health issues. Contact us to see if acupuncture is right for you.", button: "Contact Us" }
+            },
+            book: {
+                title: "Book Your Appointment",
+                subtitle: "Complete our Smart Intake form to get matched with the best care plan.",
+                steps: { personal: "Personal Details", symptoms: "Symptoms & Location", success: "Request Received!", type: "Patient Type" },
+                form: {
+                    name: "Full Name",
+                    email: "Email",
+                    phone: "Phone",
+                    reason: "Primary Check-in Reason",
+                    reasonPlaceholder: "e.g., Lower back pain for 2 weeks, getting worse when sitting.",
+                    time: "Preferred Clinic Location",
+                    timePlaceholder: "Select Location...",
+                    morning: "Morning (8am - 12pm)",
+                    afternoon: "Afternoon (12pm - 4pm)",
+                    evening: "Evening (4pm - 7pm)",
+                    honolulu: "Honolulu - Liliha Branch Clinic",
+                    aiea: "Aiea - Pearl City Branch Clinic",
+                    back: "Back",
+                    next: "Next Step",
+                    submit: "Request Appointment",
+                    submitting: "Submitting...",
+                    newPatient: "New Patient",
+                    newPatientDesc: "I am visiting AcuTherapy for the first time.",
+                    returningPatient: "Returning Patient",
+                    returningPatientDesc: "I have been here before.",
+                    bookOnline: "Book Online",
+                    contactMethod: "Preferred Contact Method",
+                    phoneMethod: "Phone",
+                    textMethod: "Text",
+                    emailMethod: "Email",
+                    selectLocation: "Select Location"
+                },
+                success: {
+                    message: "Thank you, {name}. Our team will review your symptoms and contact you at {phone} shortly to confirm your appointment.",
+                    backHome: "Back to Home"
+                }
+            },
+            acupuncturePage: {
+                title: "Acupuncture Therapy",
+                backLink: "Back to Services",
+                intro: "Acupuncture is the cornerstone of Traditional Chinese Medicine (TCM). By inserting fine, sterile needles into specific points on the body, we stimulate the nervous system to release natural painkillers and immune system cells.",
+                expect: { title: "What to Expect", text: "Your first session involves a comprehensive consultation where we discuss your medical history and current symptoms. The treatment itself is relaxing; many patients fall asleep during their session." },
+                styles: { title: "Styles We Practice", tcm: "TCM (Traditional Chinese Medicine): Focuses on balancing Qi and blood flow.", trigger: "Trigger Point (Dry Needling): Targets tight muscle knots for immediate pain relief.", japanese: "Japanese Style: Uses thinner needles and shallower insertion for sensitive patients." },
+                faq: { title: "Does it hurt?", text: "Most people feel little to no pain. The needles are hair-thin. You might feel a slight dull ache or tingling sensation, which is a sign of \"De Qi\" (arrival of energy) and indicates the treatment is working." },
+                cta: "Book Your Session"
+            },
+            massagePage: {
+                title: "Medical Massage",
+                backLink: "Back to Services",
+                intro: "Unlike a standard spa massage, medical massage is outcome-based. We focus on diagnosing and treating specific medical conditions and musculoskeletal issues.",
+                conditions: { title: "Conditions Treated", auto: "Car Accident Injuries", rsi: "Repetitive Strain (RSI)", sports: "Sports Injuries", back: "Chronic Back Pain" },
+                techniques: { title: "Techniques", text: "We utilize methods such as Deep Tissue, Myofascial Release, and Tuina (Chinese Medical Massage) to break down scar tissue and restore range of motion." },
+                cta: { title: "Recover faster.", button: "Book Massage Therapy" }
+            },
+            cuppingPage: {
+                title: "Cupping Therapy",
+                backLink: "Back to Services",
+                intro: "Cupping is an ancient therapy where special cups are placed on your skin for a few minutes to create suction. This draws stagnant blood to the surface and promotes fresh circulation deeply within the muscles.",
+                benefits: { title: "Benefits", pain: "Pain relief and muscle relaxation", antiInflam: "Anti-inflammatory effects", flow: "Increases blood flow", calm: "Promotes calm and well-being" },
+                marks: { title: "The \"Marks\"", text: "Cupping often leaves circular marks that can range from light red to dark purple. Unlike bruises, these are not painful and typically fade within 3-7 days." },
+                combinedText: "Often combined with Acupuncture for best results.",
+                ctaButton: "Book Combined Session"
+            },
+            autoInjuryPage: {
+                title: "Auto Injury Rehabilitation",
+                backLink: "Back to Home",
+                intro: "Recovering from an auto accident requires specialized care. We provide comprehensive treatment plans for whiplash, back pain, and soft tissue injuries.",
+                insurance: { title: "No-Fault Insurance Accepted", text: "We handle all the paperwork for your No-Fault claim so you can focus on healing. Most treatments are fully covered with no out-of-pocket costs." },
+                common: { title: "Common Injuries Treated", whiplash: "Whiplash and Neck Stiffness", back: "Lower Back Pain", headaches: "Headaches and Migraines", shoulder: "Shoulder Impingement" },
+                cta: { title: "Start your recovery today.", button: "Book Evaluation" }
+            },
+            workersCompPage: {
+                title: "Workers' Compensation",
+                backLink: "Back to Home",
+                intro: "Injured on the job? We are an authorized Workers' Compensation provider in Hawaii. We focus on helping you recover quickly and safely so you can return to work.",
+                insurance: { title: "We Handle Your Claim", text: "We work directly with your case manager and insurance adjusters. All necessary documentation and progress reports are handled by our office." },
+                common: { title: "Common Work Injuries", strains: "Repetitive Strain Injuries (RSI)", back: "Lower Back Pain from Lifting", carpal: "Carpal Tunnel Syndrome", slip: "Slip and Fall Injuries" },
+                cta: { title: "Start your recovery today.", button: "Book Evaluation" }
+            },
+            ptsdPage: {
+                title: "PTSD & Veterans Care",
+                backLink: "Back to Home",
+                intro: "We are honored to serve our veterans. Our clinic specializes in trauma-informed care to help process PTSD and physical injuries.",
+                approach: { title: "Our Approach", text: "We use the NADA protocol (ear acupuncture) and body points to help regulate the fight-or-flight response. This non-verbal therapy is effective for those who may not want to talk about their trauma immediately." },
+                va: { title: "VA Community Care Network", text: "We are a proud provider within the VA Community Care Network. Your treatment may be fully covered." },
+                cta: { title: "You don't have to carry it alone.", button: "Contact Us for Support" }
+            },
+            stressPage: {
+                title: "Stress & Anxiety Management",
+                backLink: "Back to Home",
+                intro: "Restore your emotional balance. Acupuncture is a powerful tool for regulating the nervous system and reducing cortisol levels.",
+                benefits: { title: "Benefits of Treatment", relax: "Deep relaxation during sessions", sleep: "Improved sleep quality", heart: "Reduced heart palpitations and tightness", focus: "Mental clarity and focus" },
+                cta: { title: "Calm your mind today.", button: "Schedule a Session" }
+            },
+            backPainPage: {
+                title: "Back & Neck Pain Relief",
+                backLink: "Back to Home",
+                intro: "Chronic back and neck pain can debilitate your daily life. Our acupuncture treatments target the root cause of inflammation and muscle tension.",
+                how: { title: "How We Treat It", acu: "Targeted acupuncture to release trigger points", cup: "Cupping therapy to improve blood flow", electro: "Electro-stimulation for deep muscle relaxation" },
+                common: { title: "Common Conditions", sciatica: { title: "Sciatica", desc: "Radiating leg pain caused by nerve compression." }, whiplash: { title: "Whiplash", desc: "Neck strain often from auto accidents." } },
+                cta: { title: "Ready to live pain-free?", text: "Book your initial consultation today.", button: "Book Appointment" }
+            },
+            privacyPage: {
+                title: "Privacy Policy",
+                lastUpdated: "Last Updated: February 2024",
+                intro: "Your Rights. Our Responsibility.\n\nWe understand that medical information about you and your health is personal and we are committed to protecting this information. When you receive acupuncture treatment, a record of the treatment is made. Typically, this record contains your treatment plan, your history and physical, any other information that you provide to us, and billing records. This record serves as a basis for planning your treatment; means of communication for or between our acupuncturists and staff; and a tool for assessing and continually working to improve the care rendered at Acutherapy locations.",
+                sections: [
+                    { heading: "Collection of your Personal Information", content: "Acutherapy Clinics collects personally identifiable information, such as your e-mail address, name, home or work address or telephone number. We also collect anonymous demographic information, which is not unique to you, such as your ZIP code, age, gender, preferences, interests and favorites.\n\nThere is also information about your computer hardware and software that is automatically collected by this website. This information can include: your IP address, browser type, domain names, access times and referring Web site addresses. This information is used for the operation of the service, to maintain quality of the service, and to provide general statistics regarding use of this Web site." },
+                    { heading: "External Links", content: "Acutherapy Clinics encourages you to review the privacy statements of Web sites you choose to link to from the website so that you can understand how those Web sites collect, use and share your information. Acutherapy Clinics is not responsible for the privacy statements or other content on any other Web sites." }
+                ]
+            },
+            termsPage: {
+                title: "Terms of Use",
+                lastUpdated: "Last Updated: February 2024",
+                intro: "These Terms of Use constitute a legally binding agreement made between you, whether personally or on behalf of an entity (“you”) and Acutherapy Clinics® (“we,” “us” or “our”), concerning your access to and use of the acutherapy.com website.",
+                sections: [
+                    { heading: "Agreement to Terms", content: "You agree that by accessing the Site, you have read, understood, and agree to be bound by all these Terms of Use. If you do not agree with all these Terms of Use, then you are expressly prohibited from using the Site and you must discontinue use immediately." },
+                    { heading: "Intellectual Property Rights", content: "Unless otherwise indicated, the Site is our proprietary property and all source code, databases, functionality, software, website designs, audio, video, text, photographs, and graphics on the Site (collectively, the “Content”) and the trademarks, service marks, and logos contained therein (the “Marks”) are owned or controlled by us or licensed to us." },
+                    { heading: "Medical Disclaimer", content: "ACUTHERAPY CLINICS® DOES NOT PROVIDE MEDICAL ADVICE. NO LICENSED MEDICAL PROFESSIONAL/PATIENT RELATIONSHIP IS CREATED BY USING THE WEBSITE. The Content is not intended to be medical advice or instructional for medical diagnosis or treatment." },
+                    { heading: "Prohibited Activities", content: "You may not access or use the Site for any purpose other than that for which we make the Site available. The Site may not be used in connection with any commercial endeavors except those that are specifically endorsed or approved by us." },
+                    { heading: "Governing Law", content: "These Terms of Use and your use of the Site are governed by and construed in accordance with the laws of the State of Hawaii applicable to agreements made and to be entirely performed within the State of Hawaii, without regard to its conflict of law principles." },
+                    { heading: "Contact Us", content: "In order to resolve a complaint regarding the Site or to receive further information regarding use of the Site, please contact us at: Acutherapy Clinics®, 1650 Liliha St Suite 208, Honolulu HI 96817." }
+                ]
+            },
+            sitemapPage: {
+                title: "Sitemap",
+                subtitle: "Overview of our website structure."
+            },
+            locations: {
+                title: "Our Locations",
+                honolulu: {
+                    name: "Honolulu Clinic (Liliha)",
+                    address: "1650 Liliha St, Suite 208, Honolulu, HI 96817",
+                    phone: "(808) 528-7177",
+                    fax: "(808) 212-9459",
+                    parking: "Convenient Location: Right on Liliha Street, easy free parking and access.",
+                    mapLink: "https://maps.app.goo.gl/ZeCVHeCsdDXUHekR6",
+                    hours: "Mon-Fri: 8am - 5pm, Sat: 8am - 12pm"
+                },
+                aiea: {
+                    name: "Aiea / Pearl City Clinic",
+                    address: "98-211 Pali Momi St, Suite 604, Aiea, HI 96701",
+                    phone: "(808) 452-1900",
+                    fax: "(808) 452-1521",
+                    parking: "Convenient Pearl Ridge Office Building Location, easy free parking and access.",
+                    mapLink: "https://maps.app.goo.gl/AZHxWvdNAjEVospUA",
+                    hours: "Mon-Fri: 8am - 5pm, Sat: 8am - 12pm"
+                }
+            },
+            reviews: {
+                title: "What Our Patients Say",
+                ratingLabel: "5.0 Stars on Google",
+                list: [
+                    {
+                        text: "I suffered from chronic lower back pain for 5 years. After just 3 sessions of acupuncture and cupping at AcuTherapy, I felt a significant release of tension. Dr. Cai is amazing!",
+                        author: "Michael T.",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Back Pain", "Honolulu", "General"]
+                    },
+                    {
+                        text: "Best acupuncture clinic in Honolulu! The staff is so friendly and the environment is very relaxing. Helped me so much with my migraines and sleep issues.",
+                        author: "Sarah J.",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Migraine", "Sleep", "Honolulu", "General"]
+                    },
+                    {
+                        text: "AcuTherapy has been a lifesaver for my anxiety. The clinic is peaceful, and they really listen to you. I leave every session feeling grounded and calm. Highly recommend!",
+                        author: "Emily R.",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Anxiety", "Mental Health", "General"]
+                    },
+                    {
+                        text: "I had a shoulder injury from volleyball and couldn't lift my arm. After a few weeks of treatment here, I'm back in the gym lifting weights. Thank you so much!",
+                        author: "David K.",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Sports Injury", "Shoulder Pain", "General"]
+                    },
+                    {
+                        text: "The Aiea location is so convenient. Parking is easy and the office is spotless. I went for sciatica pain and felt relief after the first visit.",
+                        author: "Jason L.",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Aiea", "Back Pain", "Sciatica"]
+                    },
+                    {
+                        text: "They handled my No-Fault auto accident claim perfectly. I didn't have to worry about any paperwork, just focused on getting better. My whiplash is gone.",
+                        author: "Amanda B.",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Auto Injury", "Whiplash", "Honolulu"]
+                    },
+                    {
+                        text: "Dr. Miyashiro is wonderful. She helped me with my workers comp injury. Very knowledgeable and caring.",
+                        author: "Robert P.",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Work Injury", "Aiea", "General"]
+                    }
+                ]
+            }
+        }
+    },
+    JA: {
+        hero: {
+            headline: "バランスを取り戻し、痛みを和らげる。",
+            subheadline: "ホノルルの専門鍼灸とホリスティック医療。慢性的な痛みやストレスの治療を専門とし、活力の回復をお手伝いします。",
+            cta: "予約する",
+            explore: "サービスを見る",
+        },
+        nav: {
+            home: "ホーム",
+            conditions: "症状別治療",
+            services: "サービス",
+            about: "当院について",
+            contact: "お問い合わせ",
+            blog: "ブログ",
+            successStory: "患者様の声",
+            whoWeHelp: "対象となる方",
+            locations: "クリニック所在地"
+        },
+        footer: {
+            brand: {
+                title: "AcuTherapy",
+                subtitle: "Clinics",
+                description: "古代の知恵と現代科学を融合させたホリスティックな癒し。痛みの緩和、ストレス管理、包括的なケアを専門としています。"
+            },
+            quickLinks: {
+                title: "症状別",
+                backNeck: "背中と首の痛み",
+                stressAnxiety: "ストレスと不安",
+                autoInjury: "交通事故",
+                ptsdVeterans: "PTSDと退役軍人",
+                workInjury: "労働災害"
+            },
+            services: {
+                title: "サービス",
+                acupuncture: "鍼治療",
+                massage: "医療マッサージ",
+                cupping: "カッピング療法",
+                insurance: "保険・お支払い"
+            },
+            contact: {
+                title: "お問い合わせ",
+                address: "1650 Liliha St, Suite 208, Honolulu, HI 96817",
+                fax: "ファックス: (808) 212-9459"
+            },
+            legal: {
+                rights: "無断転載を禁じます。",
+                privacy: "プライバシーポリシー",
+                terms: "利用規約",
+                sitemap: "サイトマップ"
+            }
+        },
+        sections: {
+            patients: {
+                title: "当院の対象患者様",
+                subtitle: "当院は特定のコミュニティやニーズに特化したケアを提供することに重点を置いています。",
+                learnMore: "詳細はこちら",
+                auto: {
+                    title: "交通事故",
+                    description: "むち打ち症や事故後の回復に特化したケア。無過失保険の手続きもすべて代行します。"
+                },
+                work: {
+                    title: "労災",
+                    description: "労働災害に対する包括的なリハビリテーション。労災保険と直接連携しています。"
+                },
+                vets: {
+                    title: "退役軍人",
+                    description: "退役軍人地域ケア提供者。PTSD、慢性疼痛、任務に関連する症状を治療します。"
+                },
+                medicare: {
+                    title: "メディケア・自費",
+                    description: "誰でも利用できるケア。メディケアを受け入れ、透明性のある自費料金を提供しています。"
+                }
+            },
+            conditions: {
+                title: "治療可能な症状",
+                subtitle: "身体的および精神的な健康上の課題に対して専門的なケアを提供します。",
+                viewAll: "すべての症状を見る",
+                learnMore: "詳細はこちら",
+                items: {
+                    backNeck: {
+                        title: "背中と首の痛み",
+                        description: "ターゲットを絞った鍼治療で、慢性的な坐骨神経痛、寝違え、腰痛を和らげます。"
+                    },
+                    stressAnxiety: {
+                        title: "ストレスと不安",
+                        description: "ホリスティックなストレス軽減テクニックで神経系を落ち着かせ、感情のバランスを取り戻します。"
+                    },
+                    ptsdTrauma: {
+                        title: "PTSDとトラウマ",
+                        description: "退役軍人やトラウマサバイバーのための専門ケアで、感情的・身体的な緊張を処理する手助けをします。"
+                    }
+                }
+            },
+            services: {
+                title: "サービス",
+                acupuncture: "鍼治療",
+                massage: "医療マッサージ",
+                cupping: "カッピング療法",
+                insurance: "保険・お支払い"
+            },
+            symptom: {
+                title: "AI症状チェッカー",
+                subtitle: "どこから始めればよいかわかりませんか？症状を説明してください。AIアシスタントが最適な治療計画を推奨します。",
+                placeholder: "例：「座っているときに腰が痛む」「絶え間ない頭痛」",
+                button: "分析する"
+            }
+        },
+        pages: {
+            about: {
+                title: "当院について",
+                subtitle: "私たちは、古代の癒しの知恵と現代医学の科学の架け橋となることに尽力しています。ホノルルの中心で癒しの聖域を提供します。",
+                backHome: "ホームに戻る",
+                philosophy: {
+                    title: "当院の理念",
+                    content1: "本当の健康とは、単に病気がないことではなく、活力が満ち溢れていることだと信じています。私たちは、症状だけを追うのではなく、心、体、精神を含めた全人的なアプローチを行います。",
+                    content2: "交通事故からの回復、慢性的な痛みの管理、ストレス解消など、患者様一人ひとりの体質に合わせた治療計画を作成します。"
+                },
+                team: {
+                    title: "スタッフ紹介",
+                    jane: { role: "主任鍼灸師/L.Ac., L.M.T., O.M.D.", bio: "北京中医薬大学を卒業したデイビッド・サイ博士は、過去25年間にわたり伝統医学と現代医学を融合させ、両者の長所を組み合わせた独自の疼痛管理システムを完成させました。怪我の回復、疼痛管理、漢方療法を専門としています。" },
+                    john: { role: "O.M.D., L.M.T.", bio: "Lisa Long, O.M.D., L.M.T. は、鍼灸と治療マッサージで15年以上の臨床経験を持つ認定マッサージセラピストです。北京中医薬大学金華学院を卒業し、著名な中医医師の下で高度な実習を受けました。2014年からハワイのAcuTherapyクリニックで施術を行っており、痛みの緩和、リハビリテーション、減量を専門としています。" },
+                    sarah: { role: "O.T., 患者ケアマネージャー", bio: "アンは長年の患者ケアと顧客対応の経験を持ち、クリニックの日常業務の確実な運営と監督に尽力しています。" },
+                    shuKai: { role: "リハビリテーション専門家/中医学博士, 鍼灸師", bio: "ShuKaiは母国の台湾で伝統的な中国医学と共に育ちました。東洋と西洋の専門知識を理解する彼の能力は、ユニークな回復スキルセットを提供します。認定：NCAA認定" },
+                    choonKia: { role: "医学博士", bio: "Choon Kia Yeo医学博士は、米国外科委員会およびカナダ王立内科外科医カレッジによって認定された医師兼外科医です。米国抗加齢医学会の会員であり、ハワイで50年以上にわたり医療を実践しています。" }
+                },
+                visit: {
+                    title: "アクセス",
+                    hours: { title: "診療時間", monFri: "月曜 - 金曜", sat: "土曜", sun: "日曜" },
+                    book: "予約する"
+                }
+            },
+            contact: {
+                title: "お問い合わせ",
+                getInTouch: "連絡先",
+                clinicLocation: "所在地",
+                phoneFax: "電話 & FAX",
+                email: "メール",
+                hours: "診療時間",
+                bookOnline: "オンライン予約"
+            },
+            whoWeHelp: {
+                title: "対象となる方",
+                subtitle: "当院は癒しを求めるすべての方のための聖域ですが、特に以下のコミュニティの方々への治療実績が豊富です。",
+                veterans: { title: "退役軍人", desc: "国のために尽くされた方々に奉仕できることを誇りに思います。VAコミュニティケアプロバイダーとして、PTSD、慢性痛、戦闘による負傷に対する専門的な治療を提供しています。", link: "VA給付について" },
+                auto: { title: "交通事故被害者", desc: "交通事故からの回復は大変な道のりです。私たちはノーフォルト保険の手続きをすべて代行し、むち打ち症や身体的損傷に対する包括的なケアを提供します。", link: "保険情報を見る" },
+                work: { title: "労働災害", desc: "仕事中の怪我ですか？ハワイ州の労災認定プロバイダーとして、早期回復と安全な職場復帰をサポートします。ケースマネージャーと直接連携します。", link: "労災の詳細" },
+                medicare: { title: "メディケア & 自費診療", desc: "治療は誰にでも手の届くものであるべきだと信じています。対象となる治療にはメディケアを受け入れ、自費診療の患者様には透明性のある手頃な料金を提供しています。", link: "料金・プランを見る" },
+                chronic: { title: "慢性痛でお悩みの方", desc: "「あらゆることを試した」が改善しなかった方へ。私たちは痛みの根本原因を深く掘り下げ、他で諦められた方々に希望を提供します。", link: "疼痛治療を見る" },
+                cta: { title: "新しいアプローチを試してみませんか？", button: "予約をとる" }
+            },
+            insurance: {
+                title: "保険・お支払い",
+                subtitle: "質の高いケアは利用しやすくいものであるべきです。主要な保険プランを受け入れ、自費診療の方には透明性のある価格を提供しています。",
+                accepted: "利用可能な保険プラン",
+                verifyNote: "*初回の予約前に給付確認が必要です。保険証をご持参ください。",
+                noFault: { title: "ノーフォルト（交通事故）", desc: "交通事故で怪我をされた場合、治療費は自動車保険で100%カバーされる可能性があり、自己負担はありません。", list1: "請求手続きはすべて当院が行います。", list2: "むち打ちや腰痛に対する包括的なケア。" },
+                workComp: { title: "労働者災害補償（労災）", desc: "仕事中に怪我をされましたか？当院はハワイ州の公認労災プロバイダーです。", list1: "職場復帰に向けたリハビリに重点を置いています。", list2: "オープンな請求番号と医師の紹介状が必要です。" },
+                selfPay: { title: "自費診療料金（当日払い）", service: "サービス", rate: "料金", initial: "初回鍼治療", followUp: "再診鍼治療", massage: "医療マッサージ", cupping: "カッピング療法" },
+                checkInsurance: "保険を確認する"
+            },
+            successStories: {
+                title: "患者様の声",
+                subtitle: "当院のホリスティックな治療が、どのように患者様の健康と活力を取り戻す助けとなったかをご覧ください。",
+                cta: { title: "あなた自身のサクセスストーリーを始めましょう", subtitle: "鍼治療とホリスティック医学の恩恵を体験する準備はできましたか？今すぐ初回相談をご予約ください。", button: "予約する" },
+                testimonials: {
+                    backPain: { text: "5年間、慢性的な腰痛に悩まされていました。鍼治療とカッピングをわずか3回受けただけで、緊張が大幅に解けました。またハイキングができるようになりました！", category: "腰痛" },
+                    anxiety: { text: "AcuTherapyは私の不安にとっての救命具です。クリニックはとても平和で、ドクター・ドーは親身に話を聞いてくれます。セッションの後はいつも心が落ち着きます。", category: "ストレス・不安" },
+                    auto: { text: "交通事故の後、チームがノーフォルト保険の書類手続きをすべて処理してくれました。医療マッサージのおかげで、典型的なむち打ちの症状は数週間で消えました。", category: "交通事故による怪我" },
+                    wellness: { text: "メンテナンスのために月に一度通っています。免疫力を強く保ち、エネルギーレベルを高めてくれます。ホリスティックケアプランを強くお勧めします。", category: "一般ウェルネス" }
+                }
+            },
+            blog: {
+                title: "健康・ウェルネスブログ",
+                subtitle: "ホリスティックヘルスの専門家によるヒント、ニュース、洞察。",
+                readArticle: "記事を読む",
+                posts: {
+                    backPain: {
+                        title: "鍼治療が慢性的な腰痛を和らげる5つの方法",
+                        excerpt: "ターゲットを絞った鍼治療がどのように炎症を抑え、体内の自然な鎮痛剤を誘発するかをご覧ください。",
+                        category: "疼痛緩和",
+                        content: "慢性的な腰痛は、人々が鍼治療を求める最も一般的な理由の1つです。痛みを一時的に隠すだけの薬とは異なり、鍼治療は根本的な原因をターゲットにします。\n\nここにその5つの効果があります：\n1. 炎症を抑える：刺鍼は、天然の抗炎症物質であるコルチゾールの放出を促します。\n2. エンドルフィンを放出する：体内の天然の鎮痛化学物質を刺激します。\n3. 血行を改善する：血流が良くなることで、損傷した組織に栄養が運ばれます。\n4. 筋肉をリラックスさせる：緊張したトリガーポイントを物理的に解放します。\n5. 神経系をリセットする：体を「闘争・逃走」モードから「休息・消化」モードに切り替えます。\n\n腰痛に悩んでいる場合は、長期的な結果を得るために一連の治療を検討してください。"
+                    },
+                    stress: {
+                        title: "ストレスと不安を管理する自然な方法",
+                        excerpt: "マインドフルな呼吸からハーブティーまで、神経系のバランスを保つためのホリスティックな戦略を学びましょう。",
+                        category: "メンタルヘルス",
+                        content: "ストレスは現代生活において避けられないものですが、その管理方法が大きな違いを生みます。慢性的なストレスは、高血圧や消化器系の問題などの身体的な健康問題につながる可能性があります。\n\nホリスティックな戦略には以下が含まれます：\n- **マインドフルな呼吸**：1日5分間呼吸に集中することで、コルチゾールレベルを下げることができます。\n- **鍼治療**：定期的なセッションは自律神経系の調整に役立ちます。\n- **漢方薬**：アシュワガンダのようなアダプトゲンは、体がストレッサーに抵抗するのを助けます。\n- **睡眠衛生**：7〜8時間の睡眠を優先することで、脳が感情を処理できるようになります。\n\n日常生活の小さな変化が、精神的な健康に大きな影響を与える可能性があります。"
+                    },
+                    cupping: {
+                        title: "カッピング療法とは？初心者向けガイド",
+                        excerpt: "有名人が見せているあの円形の跡について、知っておくべきことのすべて。",
+                        category: "教育",
+                        content: "アスリートや有名人の体に円形の跡があるのを見たことがあるでしょう。しかし、カッピングとは一体何なのでしょうか？\n\nカッピング療法は、セラピストが特別なカップを皮膚に数分間置いて吸引を行う、古代の代替医療の一形態です。人々は、痛み、炎症、血流、リラクゼーション、幸福感の改善、そして一種の深部組織マッサージとして、多くの目的でこれを受けます。\n\nカップは以下の素材で作られています：\n- ガラス\n- 竹\n- 陶器\n- シリコン\n\n吸引力は毛細血管を拡張し、組織に出入りする体液の量を増やします。これは逆マッサージのようなもので、押し下げるのではなく、引き上げるのです！"
+                    }
+                }
+            },
+            servicesPage: {
+                title: "当院のサービス",
+                subtitle: "体、心、精神を癒すために設計された包括的なホリスティック療法を提供しています。",
+                items: {
+                    acupuncture: { title: "鍼治療", desc: "エネルギーのバランスを整え、痛みを和らげる伝統的な中国医学の技術。" },
+                    massage: { title: "医療マッサージ", desc: "特定の筋骨格系の問題を解決することに焦点を当てた治療的マッサージ。" },
+                    cupping: { title: "カッピング療法", desc: "血行を促進し、炎症を軽減する古代の吸引技術。" },
+                    carePlans: { title: "ホリスティックケアプラン", desc: "長期的な健康目標に合わせてカスタマイズされた包括的な治療計画。" }
+                },
+                learnMore: "詳細はこちら"
+            },
+            conditionsPage: {
+                title: "治療可能な症状",
+                subtitle: "古代の知恵と現代科学を融合し、慢性疼痛、ストレス関連障害、複雑な健康状態の治療を専門としています。",
+                items: {
+                    backNeck: { title: "背中と首の痛み", desc: "坐骨神経痛、椎間板ヘルニア、慢性的な筋肉の緊張を緩和します。" },
+                    stress: { title: "ストレスと不安", desc: "ホリスティックなケアで神経系を整え、穏やかさを取り戻します。" },
+                    ptsd: { title: "PTSDと退役軍人", desc: "トラウマの回復と神経系の調整のための専門的なケア。" }
+                },
+                cta: { title: "症状が見当たりませんか？", text: "当院では幅広い健康問題に対応しています。鍼治療があなたに適しているかどうか、お問い合わせください。", button: "お問い合わせ" }
+            },
+            book: {
+                title: "予約する",
+                subtitle: "スマート問診票にご記入いただくと、最適なケアプランとマッチングされます。",
+                steps: { personal: "個人情報", symptoms: "症状と希望場所", success: "リクエストを受け付けました！", type: "患者タイプ" },
+                form: {
+                    name: "氏名",
+                    email: "メールアドレス",
+                    phone: "電話番号",
+                    reason: "主な来院理由",
+                    reasonPlaceholder: "例：2週間前から腰痛があり、座っていると悪化する。",
+                    time: "希望する診療所",
+                    timePlaceholder: "場所を選択してください...",
+                    morning: "午前 (8時 - 12時)",
+                    afternoon: "午後 (12時 - 16時)",
+                    evening: "夕方 (16時 - 19時)",
+                    honolulu: "ホノルル - リリハ院",
+                    aiea: "アイエア - パールシティ院",
+                    back: "戻る",
+                    next: "次へ",
+                    submit: "予約をリクエスト",
+                    submitting: "送信中...",
+                    newPatient: "初診の方",
+                    newPatientDesc: "当院は初めてです。",
+                    returningPatient: "再診の方",
+                    returningPatientDesc: "以前受診したことがあります。",
+                    bookOnline: "オンライン予約",
+                    contactMethod: "希望する連絡方法",
+                    phoneMethod: "電話",
+                    textMethod: "SMS",
+                    emailMethod: "メール",
+                    selectLocation: "場所を選択"
+                },
+                success: {
+                    message: "ありがとうございます、{name}様。当院のチームが症状を確認し、予約確定のために近日中に {phone} までご連絡いたします。",
+                    backHome: "ホームに戻る"
+                }
+            },
+            acupuncturePage: {
+                title: "鍼治療",
+                backLink: "サービスに戻る",
+                intro: "鍼治療は伝統的中国医学（TCM）の基礎です。体内の特定のポイントに微細な滅菌鍼を刺入することで、神経系を刺激し、自然な鎮痛物質や免疫細胞の放出を促します。",
+                expect: { title: "治療の流れ", text: "初回セッションでは、詳細な問診を行い、病歴や現在の症状について話し合います。治療自体はリラックスできるもので、多くの患者様が治療中に眠ってしまいます。" },
+                styles: { title: "実践しているスタイル", tcm: "TCM（伝統的中国医学）：気のバランスと血流に焦点を当てます。", trigger: "トリガーポイント（ドライニードリング）：筋肉の緊張した結節をターゲットにし、即座に痛みを和らげます。", japanese: "日本式：敏感な患者様のために、より細い鍼と浅い刺入を使用します。" },
+                faq: { title: "痛みはありますか？", text: "ほとんどの方が痛みを感じません。鍼は髪の毛ほどの細さです。「得気（とっき）」と呼ばれる重い感覚やピリピリ感を感じることがありますが、これはエネルギーが到達したサインであり、治療が効いている証拠です。" },
+                cta: "セッションを予約する"
+            },
+            massagePage: {
+                title: "医療マッサージ",
+                backLink: "サービスに戻る",
+                intro: "一般的なスパマッサージとは異なり、医療マッサージは結果重視です。特定の病状や筋骨格系の診断と治療に焦点を当てています。",
+                conditions: { title: "治療可能な症状", auto: "交通事故による怪我", rsi: "反復性過労障害（RSI）", sports: "スポーツ障害", back: "慢性的な腰痛" },
+                techniques: { title: "テクニック", text: "深部組織マッサージ、筋膜リリース、推拿（すいな）などの方法を用いて、瘢痕組織を分解し、可動域を回復させます。" },
+                cta: { title: "より早く回復するために。", button: "マッサージ療法を予約" }
+            },
+            cuppingPage: {
+                title: "カッピング療法",
+                backLink: "サービスに戻る",
+                intro: "カッピングは、特別なカップを皮膚に数分間置いて吸引を行う古代の療法です。これにより、滞った血液が表面に引き上げられ、筋肉の奥深くで血行が促進されます。",
+                benefits: { title: "メリット", pain: "疼痛緩和と筋肉のリラックス", antiInflam: "抗炎症作用", flow: "血流の増加", calm: "穏やかさと幸福感の促進" },
+                marks: { title: "「痕」について", text: "カッピングを行うと、薄い赤色から濃い紫色までの円形の痕が残ることがよくあります。打撲傷とは異なり、痛みはなく、通常3〜7日で消えます。" },
+                combinedText: "最良の結果を得るために、鍼治療と組み合わせて行われることがよくあります。",
+                ctaButton: "統合セッションを予約"
+            },
+            autoInjuryPage: {
+                title: "交通事故リハビリテーション",
+                backLink: "ホームに戻る",
+                intro: "交通事故からの回復には専門的なケアが必要です。むち打ち症、腰痛、軟部組織の損傷に対する包括的な治療計画を提供しています。",
+                insurance: { title: "無過失保険対応", text: "無過失保険請求の手続きは当院がすべて行いますので、患者様は治療に専念していただけます。ほとんどの治療は自己負担なしで完全にカバーされます。" },
+                common: { title: "治療可能な一般的な怪我", whiplash: "むち打ち症と首のこり", back: "腰痛", headaches: "頭痛と偏頭痛", shoulder: "肩インピンジメント症候群" },
+                cta: { title: "今日から回復を始めましょう。", button: "評価を予約する" }
+            },
+            workersCompPage: {
+                title: "労働災害（労災）",
+                backLink: "ホームに戻る",
+                intro: "仕事中に怪我をされましたか？当院はハワイ州の公認労災プロバイダーです。早期回復と安全な職場復帰をサポートすることに重点を置いています。",
+                insurance: { title: "請求手続きを代行します", text: "ケースマネージャーや保険アジャスターと直接連携します。必要な書類や経過報告書はすべて当院が処理します。" },
+                common: { title: "一般的な労働災害", strains: "反復性過労障害（RSI）", back: "持ち上げ作業による腰痛", carpal: "手根管症候群", slip: "転倒・転落事故" },
+                cta: { title: "今日から回復を始めましょう。", button: "評価を予約する" }
+            },
+            ptsdPage: {
+                title: "PTSDと退役軍人ケア",
+                backLink: "ホームに戻る",
+                intro: "退役軍人の皆様にサービスを提供できることを光栄に思います。当院は、PTSDや身体的損傷のプロセスを支援するトラウマインフォームドケアを専門としています。",
+                approach: { title: "当院のアプローチ", text: "NADAプロトコル（耳鍼）と身体のポイントを使用して、闘争・逃走反応の調整を助けます。この非言語的療法は、トラウマについてすぐに話したくない方に効果的です。" },
+                va: { title: "VAコミュニティケアネットワーク", text: "当院はVAコミュニティケアネットワークの誇り高きプロバイダーです。治療は完全にカバーされる場合があります。" },
+                cta: { title: "一人で抱え込まないでください。", button: "サポートについて問い合わせる" }
+            },
+            stressPage: {
+                title: "ストレスと不安の管理",
+                backLink: "ホームに戻る",
+                intro: "感情のバランスを取り戻しましょう。鍼治療は神経系を調整し、コルチゾールレベルを下げるための強力なツールです。",
+                benefits: { title: "治療のメリット", relax: "セッション中の深いリラックス", sleep: "睡眠の質の向上", heart: "動悸や圧迫感の軽減", focus: "精神的な明晰さと集中力" },
+                cta: { title: "今日、心を落ち着かせましょう。", button: "セッションを予約する" }
+            },
+            backPainPage: {
+                title: "背中と首の痛みの緩和",
+                backLink: "ホームに戻る",
+                intro: "慢性的な背中や首の痛みは、日常生活を困難にします。当院の鍼治療は、炎症と筋肉の緊張の根本原因をターゲットにしています。",
+                how: { title: "治療方法", acu: "トリガーポイントを解放するターゲット鍼治療", cup: "血流を改善するカッピング療法", electro: "深部筋肉のリラクゼーションのための電気刺激" },
+                common: { title: "一般的な症状", sciatica: { title: "坐骨神経痛", desc: "神経圧迫による下肢の放散痛。" }, whiplash: { title: "むち打ち症", desc: "多くの場合、交通事故による首の捻挫。" } },
+                cta: { title: "痛みのない生活を送る準備はできましたか？", text: "今日、初回コンサルテーションをご予約ください。", button: "予約する" }
+            },
+            privacyPage: {
+                title: "プライバシーポリシー",
+                lastUpdated: "最終更新日: 2024年2月",
+                intro: "あなたの権利。私たちの責任。\n\n私たちは、あなたの医療情報および健康に関する情報が個人的なものであることを理解し、その保護に取り組んでいます。鍼治療を受ける際、治療の記録が作成されます。通常、この記録には治療計画、病歴、身体診察、あなたが提供したその他の情報、および請求記録が含まれます。この記録は、治療計画の基礎、鍼灸師とスタッフ間の連絡手段、およびAcutherapyの各拠点でのケアの評価と改善のためのツールとして機能します。",
+                sections: [
+                    { heading: "個人情報の収集", content: "Acutherapy Clinicsは、メールアドレス、氏名、自宅または職場の住所、電話番号などの個人情報を収集します。また、郵便番号、年齢、性別、好み、興味、お気に入りなど、個人を特定しない人口統計学的情報も収集します。\n\nまた、このウェブサイトによって自動的に収集されるコンピュータのハードウェアおよびソフトウェアに関する情報もあります。この情報には、IPアドレス、ブラウザの種類、ドメイン名、アクセス時間、参照元のウェブサイトアドレスが含まれる場合があります。この情報は、サービスの運営、サービスの品質維持、および本ウェブサイトの使用に関する一般的な統計を提供するために使用されます。" },
+                    { heading: "外部リンク", content: "Acutherapy Clinicsは、当ウェブサイトからリンクされているウェブサイトのプライバシーステートメントを確認し、それらのウェブサイトがどのように情報を収集、使用、共有しているかを理解することを推奨します。Acutherapy Clinicsは、他のウェブサイトのプライバシーステートメントやその他のコンテンツについて責任を負いません。" }
+                ]
+            },
+            termsPage: {
+                title: "利用規約",
+                lastUpdated: "最終更新日: 2024年2月",
+                intro: "これらの利用規約は、あなた（個人または法人を代表する場合を含む）（以下「あなた」）とAcutherapy Clinics®（以下「私たち」）との間の、acutherapy.comウェブサイトへのアクセスおよび使用に関する法的拘束力のある契約を構成します。",
+                sections: [
+                    { heading: "規約への同意", content: "本サイトにアクセスすることにより、あなたはこれらの利用規約のすべてを読み、理解し、同意したものとみなされます。これらの利用規約のすべてに同意しない場合は、本サイトの使用を直ちに中止する必要があります。" },
+                    { heading: "知的財産権", content: "特に明記されていない限り、本サイトは当社の所有物であり、本サイト上のすべてのソースコード、データベース、機能、ソフトウェア、ウェブサイトデザイン、音声、ビデオ、テキスト、写真、およびグラフィック（総称して「コンテンツ」）、およびそこに含まれる商標、サービスマーク、およびロゴ（「マーク」）は、当社によって所有または管理されているか、当社にライセンスされています。" },
+                    { heading: "医療に関する免責事項", content: "ACUTHERAPY CLINICS®は医療アドバイスを提供しません。ウェブサイトの使用によって、認可された医療専門家と患者の関係が構築されることはありません。コンテンツは、医学的診断や治療のための助言や指導を意図したものではありません。" },
+                    { heading: "禁止事項", content: "当社が本サイトを利用可能にする目的以外で、本サイトにアクセスまたは使用することはできません。本サイトは、当社が特に承認または承認した場合を除き、いかなる商業的活動にも使用することはできません。" },
+                    { heading: "準拠法", content: "これらの利用規約および本サイトの使用は、抵触法の原則にかかわらず、ハワイ州内で完全に履行される契約に適用されるハワイ州法に準拠し、解釈されるものとします。" },
+                    { heading: "お問い合わせ", content: "本サイトに関する苦情の解決や、本サイトの使用に関する詳細情報の入手については、以下までご連絡ください：Acutherapy Clinics®, 1650 Liliha St Suite 208, Honolulu HI 96817." }
+                ]
+            },
+            sitemapPage: {
+                title: "サイトマップ",
+                subtitle: "ウェブサイト構造の概要"
+            },
+            locations: {
+                title: "クリニック所在地",
+                honolulu: {
+                    name: "ホノルル・リリハ院",
+                    address: "1650 Liliha St, Suite 208, Honolulu, HI 96817",
+                    phone: "(808) 528-7177",
+                    fax: "(808) 212-9459",
+                    parking: "便利なロケーション：リリハ通り沿い、アクセス良好、無料駐車場完備。",
+                    mapLink: "https://maps.app.goo.gl/ZeCVHeCsdDXUHekR6",
+                    hours: "月-金: 8:00 - 17:00, 土: 8:00 - 12:00"
+                },
+                aiea: {
+                    name: "アイエア / パールシティ院",
+                    address: "98-211 Pali Momi St, Suite 604, Aiea, HI 96701",
+                    phone: "(808) 452-1900",
+                    fax: "(808) 452-1521",
+                    parking: "便利なロケーション：パールリッジ・オフィスビル内、アクセス良好、無料駐車場完備。",
+                    mapLink: "https://maps.app.goo.gl/AZHxWvdNAjEVospUA",
+                    hours: "月-金: 8:00 - 17:00, 土: 8:00 - 12:00"
+                }
+            },
+            reviews: {
+                title: "患者様からの声",
+                ratingLabel: "Googleレビュー 5.0星",
+                list: [
+                    {
+                        text: "5年間、慢性的な腰痛に悩まされていました。AcuTherapyで鍼とカッピングをたった3回受けただけで、緊張がかなり解けました。蔡先生は素晴らしいです！",
+                        author: "Michael T.",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Back Pain", "Honolulu", "General"]
+                    },
+                    {
+                        text: "ホノルルで最高の鍼灸院です！スタッフはとてもフレンドリーで、環境もとてもリラックスできます。偏頭痛と睡眠障害にとても効果がありました。",
+                        author: "Sarah J.",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Migraine", "Sleep", "Honolulu", "General"]
+                    },
+                    {
+                        text: "AcuTherapyは私の不安症の救世主です。クリニックは穏やかで、親身になって話を聞いてくれます。セッションの後はいつも心が落ち着きます。強くお勧めします！",
+                        author: "Emily R.",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Anxiety", "Mental Health", "General"]
+                    },
+                    {
+                        text: "バレーボールで肩を痛めて腕が上がりませんでした。ここで数週間治療を受けた後、ジムでウェイトトレーニングができるまで回復しました。本当にありがとうございました！",
+                        author: "David K.",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Sports Injury", "Shoulder Pain", "General"]
+                    },
+                    {
+                        text: "アイエア店はとても便利です。駐車も簡単で、オフィスも清潔です。坐骨神経痛で行きましたが、最初の訪問で痛みが和らぎました。",
+                        author: "Jason L.",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Aiea", "Back Pain", "Sciatica"]
+                    },
+                    {
+                        text: "彼らは私の無過失自動車事故の請求を完璧に処理してくれました。書類の心配をすることなく、回復に専念できました。むち打ちは治りました。",
+                        author: "Amanda B.",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Auto Injury", "Whiplash", "Honolulu"]
+                    },
+                    {
+                        text: "ミヤシロ先生は素晴らしいです。労災の怪我の治療を手伝ってくれました。知識が豊富で親切です。",
+                        author: "Robert P.",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Work Injury", "Aiea", "General"]
+                    }
+                ]
+            }
+        }
+    },
+    ZH: {
+        hero: {
+            headline: "恢复平衡，缓解疼痛。",
+            subheadline: "檀香山专业的针灸和整体医学。我们专长于治疗慢性疼痛、压力，帮助您恢复活力。",
+            cta: "预约",
+            explore: "浏览服务",
+        },
+        nav: {
+            home: "首页",
+            conditions: "主治症状",
+            services: "服务项目",
+            about: "关于我们",
+            contact: "联系我们",
+            blog: "博客",
+            successStory: "成功案例",
+            whoWeHelp: "服务对象",
+            locations: "分店地址"
+        },
+        footer: {
+            brand: {
+                title: "AcuTherapy",
+                subtitle: "Clinics",
+                description: "结合古代智慧与现代科学的整体疗法。并在疼痛缓解、压力管理和综合护理方面拥有专业经验。"
+            },
+            quickLinks: {
+                title: "主治症状",
+                backNeck: "背部和颈部疼痛",
+                stressAnxiety: "压力与焦虑",
+                autoInjury: "车祸伤害",
+                ptsdVeterans: "PTSD与退伍军人",
+                workInjury: "工伤"
+            },
+            services: {
+                title: "服务项目",
+                acupuncture: "针灸",
+                massage: "医疗推拿",
+                cupping: "拔罐疗法",
+                insurance: "保险与支付"
+            },
+            contact: {
+                title: "联系我们",
+                address: "1650 Liliha St, Suite 208, Honolulu, HI 96817",
+                fax: "传真: (808) 212-9459"
+            },
+            legal: {
+                rights: "版权所有。",
+                privacy: "隐私政策",
+                terms: "服务条款",
+                sitemap: "网站地图"
+            }
+        },
+        sections: {
+            patients: {
+                title: "服务对象",
+                subtitle: "我们专注于为特定群体和需求提供专业护理。",
+                learnMore: "了解更多",
+                auto: {
+                    title: "车祸伤害",
+                    description: "针对鞭打伤和事故康复的专业护理。我们处理所有无过错保险文书工作。"
+                },
+                work: {
+                    title: "工伤",
+                    description: "针对工伤的综合康复。我们直接与劳工赔偿局合作。"
+                },
+                vets: {
+                    title: "退伍军人",
+                    description: "荣幸成为退伍军人社区护理提供者。治疗PTSD、慢性疼痛和服役相关疾病。"
+                },
+                medicare: {
+                    title: "医疗保险与自费",
+                    description: "人人皆可获得的护理。我们接受医疗保险并提供透明的自费价格。"
+                }
+            },
+            conditions: {
+                title: "治疗范围",
+                subtitle: "我们针对广泛的身心健康问题提供专业护理。",
+                viewAll: "查看所有治疗症状",
+                learnMore: "了解更多",
+                items: {
+                    backNeck: {
+                        title: "背部和颈部疼痛",
+                        description: "通过针对性针灸缓解慢性坐骨神经痛、落枕和腰肌劳损。"
+                    },
+                    stressAnxiety: {
+                        title: "压力与焦虑",
+                        description: "通过整体减压技术平复神经系统，恢复情绪平衡。"
+                    },
+                    ptsdTrauma: {
+                        title: "PTSD与创伤",
+                        description: "为退伍军人和创伤幸存者提供专业护理，帮助处理情绪和身体紧张。"
+                    }
+                }
+            },
+            services: {
+                title: "服务项目",
+                acupuncture: "针灸",
+                massage: "医疗推拿",
+                cupping: "拔罐疗法",
+                insurance: "保险与支付"
+            },
+            symptom: {
+                title: "AI症状检查器",
+                subtitle: "不知道从哪里开始？描述您的症状，我们的AI助手将为您推荐最佳治疗方案。",
+                placeholder: "例如：“坐着时腰部剧痛”或“持续性头痛”",
+                button: "分析"
+            }
+        },
+        pages: {
+            about: {
+                title: "关于 AcuTherapy",
+                subtitle: "我们致力于通过结合古代治疗智慧与现代医学科学来促进健康。我们的诊所位于檀香山市中心，为您提供疗愈的避风港。",
+                backHome: "返回首页",
+                philosophy: {
+                    title: "我们的理念",
+                    content1: "我们相信真正的健康不仅仅是没有疾病，而是充满活力。我们的方法是整体的，治疗整个人——身、心、灵——而不仅仅是追逐症状。",
+                    content2: "无论您是从车祸中恢复、管理慢性疼痛，还是寻求缓解压力，我们都会根据您独特的体质定制每个治疗计划。"
+                },
+                team: {
+                    title: "团队介绍",
+                    jane: { role: "首席针灸师/L.Ac., L.M.T., O.M.D.", bio: "蔡医生毕业于北京中医药大学，在过去25年中致力于融合传统与现代医学，结合两者的精髓，创造了一套独特的疼痛管理系统。他擅长损伤恢复、疼痛管理和草药疗法。" },
+                    john: { role: "医学世家，康复理疗师", bio: "Lisa Long, O.M.D., L.M.T. 是一位拥有超过15年针灸和治疗性按摩临床经验的执照按摩治疗师。她毕业于北京中医药大学金华学院，并在著名的中医医师指导下接受过进阶培训。Lisa 自2014年以来一直在夏威夷的 AcuTherapy 诊所执业，擅长缓解疼痛、康复和减肥。" },
+                    sarah: { role: "O.T., 患者护理经理", bio: "Anne 拥有多年的患者护理和客户关系经验，致力于确保和监督诊所的日常运营。" },
+                    shuKai: { role: "康复专家/中医学博士, 执照针灸师", bio: "ShuKai在他位于台湾的故乡伴随着传统中医长大。他掌握东方和西方技术细节的能力为他提供了一套独特的康复技能。认证：NCAA认证" },
+                    choonKia: { role: "医学博士", bio: "Choon Kia Yeo医学博士是一位内科医生和外科医生，获得了美国外科委员会和加拿大皇家内科医生和外科医生学院的认证。作为美国抗衰老医学会的成员，他在夏威夷行医已有50多年。" }
+                },
+                visit: {
+                    title: "访问我们",
+                    hours: { title: "营业时间", monFri: "周一 - 周五", sat: "周六", sun: "周日" },
+                    book: "预约"
+                }
+            },
+            contact: {
+                title: "联系我们",
+                getInTouch: "取得联系",
+                clinicLocation: "诊所地址",
+                phoneFax: "电话 & 传真",
+                email: "电子邮件",
+                hours: "营业时间",
+                bookOnline: "在线预约"
+            },
+            whoWeHelp: {
+                title: "服务对象",
+                subtitle: "我们的诊所这所有寻求治愈的人的避难所，但我们在服务以下群体方面拥有丰富的经验。",
+                veterans: { title: "退伍军人", desc: "我们要因服务那些曾为国家服务的人。作为 VA 社区护理提供者，我们为 PTSD、慢性疼痛和战斗相关伤害提供专业治疗。", link: "了解 VA 福利" },
+                auto: { title: "车祸受害者", desc: "从车祸中恢复可能会让人不知所措。我们要理所有无过错保险文书工作，并为鞭打伤和结构性损伤提供全面护理。", link: "查看保险信息" },
+                work: { title: "工伤", desc: "工作中受伤？我们要专门处理工伤赔偿案件，帮助您快速康复并安全重返工作岗位。我们直接与您的个案经理沟通。", link: "工伤详情" },
+                medicare: { title: "Medicare & 自费", desc: "我们要信治愈应该是可获得的。我们接受 Medicare 用于符合条件的治疗，并为自费患者提供透明、实惠的价格。", link: "查看价格与计划" },
+                chronic: { title: "慢性疼痛患者", desc: "对于那些“尝试了一切”但没有成功的人。我们要深入寻找您疼痛的根本原因，在其他人放弃时提供希望。", link: "探索疼痛治疗" },
+                cta: { title: "准备好尝试新方法了吗？", button: "预约您的时间" }
+            },
+            insurance: {
+                title: "保险与支付选项",
+                subtitle: "我们要信优质护理应该是可获得的。我们接受大多数主要保险计划，并为自费患者提供透明的价格。",
+                accepted: "接受的保险计划",
+                verifyNote: "*首次预约前需要核实福利。请携带您的保险卡。",
+                noFault: { title: "无过错（车祸）", desc: "如果您在车祸中受伤，您的治疗可能由汽车保险 100% 承保，您无需自付费用。", list1: "我们要理所有账单文书工作。", list2: "针对鞭打伤和背痛的全面护理。" },
+                workComp: { title: "工伤赔偿", desc: "工作中受伤？我们要夏威夷授权的工伤赔偿提供者。", list1: "专注于重返工作岗位的康复。", list2: "需要开放的索赔编号和医生转诊。" },
+                selfPay: { title: "自费价格（服务时支付）", service: "服务", rate: "价格", initial: "初次针灸访问", followUp: "后续针灸", massage: "医疗推拿", cupping: "拔罐疗法" },
+                checkInsurance: "检查您的保险"
+            },
+            successStories: {
+                title: "真实故事，真实治愈",
+                subtitle: "看看我们的整体治疗如何帮助患者恢复健康和活力。",
+                cta: { title: "开始您自己的成功故事", subtitle: "准备好体验针灸和整体医学的好处了吗？立即预订您的初步咨询。", button: "预约" },
+                testimonials: {
+                    backPain: { text: "我患有慢性下背痛5年。仅经过3次针灸和拔罐治疗，我就感到紧张感明显释放。我现在又可以去徒步旅行了！", category: "背痛" },
+                    anxiety: { text: "AcuTherapy 是我焦虑的救星。诊所非常宁静，Doe 医生真的很认真倾听。每次治疗后我都感到脚踏实地和平静。", category: "压力与焦虑" },
+                    auto: { text: "车祸后，团队处理了我所有的无过错保险文书工作。由于他们的医疗推拿治疗，典型的鞭打症状在几周内就消失了。", category: "车祸伤害" },
+                    wellness: { text: "我每个月来一次进行维护。它保持我的免疫系统强壮，精力充沛。强烈推荐整体护理计划。", category: "一般健康" }
+                }
+            },
+            blog: {
+                title: "健康与保健博客",
+                subtitle: "来自我们整体健康专家的提示、新闻和见解。",
+                readArticle: "阅读文章",
+                posts: {
+                    backPain: {
+                        title: "针灸缓解慢性背痛的5种方法",
+                        excerpt: "了解针对性针灸治疗如何减少炎症并触发身体的天然止痛药。",
+                        category: "疼痛缓解",
+                        content: "慢性背痛是人们寻求针灸治疗的最常见原因之一。与通常只是掩盖疼痛的药物不同，针灸针对的是根本原因。\n\n以下是它的5种作用方式：\n1. 减少炎症：针刺会触发皮质醇的释放，这是一种天然的抗炎剂。\n2. 释放内啡肽：它刺激身体产生天然的止痛化学物质。\n3. 改善循环：增强的血流将营养物质带到受伤的组织。\n4. 放松肌肉：它从物理上释放紧绷的激痛点。\n5. 重置神经系统：它将身体从“战斗或逃跑”模式转变为“休息和消化”模式。\n\n如果您正在与背痛作斗争，请考虑进行一系列治疗以获得持久的效果。"
+                    },
+                    stress: {
+                        title: "管理压力与焦虑的自然方法",
+                        excerpt: "从正念呼吸到草药茶，学习保持神经系统平衡的整体策略。",
+                        category: "心理健康",
+                        content: "压力是现代生活中不可避免的一部分，但我们如何管理它会产生截然不同的结果。慢性压力会导致高血压和消化问题等身体健康问题。\n\n整体策略包括：\n- **正念呼吸**：每天花5分钟专注于呼吸可以降低皮质醇水平。\n- **针灸**：定期疗程有助于调节自主神经系统。\n- **草药医学**：南非醉茄等适应原可以帮助身体抵抗压力源。\n- **睡眠卫生**：优先考虑7-8小时的睡眠可以让大脑处理情绪。\n\n日常生活中微小的改变可以对您的心理健康产生巨大的影响。"
+                    },
+                    cupping: {
+                        title: "什么是拔罐疗法？初学者指南",
+                        excerpt: "您需要了解的关于名人展示的那些圆形印记的一切。",
+                        category: "教育",
+                        content: "您可能已经在运动员和名人身上看到了圆形的印记。但拔罐究竟是什么？\n\n拔罐疗法是替代医学的一种古老形式，治疗师将特殊的罐子放在您的皮肤上几分钟以产生吸力。人们出于多种目的进行拔罐，包括帮助缓解疼痛、炎症、血流、放松和幸福感，以及作为一种深层组织按摩。\n\n罐子可以由以下材料制成：\n- 玻璃\n- 竹子\n- 陶土\n- 硅胶\n\n吸力扩张毛细血管并增加进出组织的液体量。这就像反向按摩——它不是向下推，而是向上拉！"
+                    }
+                }
+            },
+            servicesPage: {
+                title: "我们的服务",
+                subtitle: "我们提供全面的整体疗法，旨在治愈身与心。",
+                items: {
+                    acupuncture: { title: "针灸", desc: "平衡能量和缓解疼痛的传统中医技术。" },
+                    massage: { title: "医疗推拿", desc: "专注于解决特定肌肉骨骼问题的治疗性推拿。" },
+                    cupping: { title: "拔罐疗法", desc: "改善血液循环和减少炎症的古老抽吸技术。" },
+                    carePlans: { title: "整体护理计划", desc: "根据您的长期健康目标量身定制的综合治疗计划。" }
+                },
+                learnMore: "了解更多"
+            },
+            conditionsPage: {
+                title: "治疗范围",
+                subtitle: "我们结合古代智慧和现代科学，专门治疗慢性疼痛、压力相关疾病和复杂的健康状况。",
+                items: {
+                    backNeck: { title: "背部和颈部疼痛", desc: "缓解坐骨神经痛、腰椎间盘突出和慢性肌肉紧张。" },
+                    stress: { title: "压力与焦虑", desc: "通过整体护理调节神经系统，寻找平静。" },
+                    ptsd: { title: "PTSD与退伍军人", desc: "创伤恢复和神经系统调节的专业护理。" }
+                },
+                cta: { title: "没看到您的症状？", text: "我们治疗广泛的健康问题。联系我们，看看针灸是否适合您。", button: "联系我们" }
+            },
+            book: {
+                title: "预约您的时间",
+                subtitle: "填写我们的智能接收表，为您匹配最佳护理计划。",
+                steps: { personal: "个人详细信息", symptoms: "症状与分店", success: "已收到请求！", type: "患者类型" },
+                form: {
+                    name: "全名",
+                    email: "电子邮件",
+                    phone: "电话",
+                    reason: "主要就诊原因",
+                    reasonPlaceholder: "例如：下背痛持续2周，坐着时加重。",
+                    time: "首选诊所地址",
+                    timePlaceholder: "选择偏好...",
+                    morning: "上午 (8am - 12pm)",
+                    afternoon: "下午 (12pm - 4pm)",
+                    evening: "晚上 (4pm - 7pm)",
+                    honolulu: "Honolulu - Liliha Branch Clinic",
+                    aiea: "Aiea - Pearl City Branch Clinic",
+                    back: "返回",
+                    next: "下一步",
+                    submit: "请求预约",
+                    submitting: "提交中...",
+                    newPatient: "初诊贵宾",
+                    newPatientDesc: "我是第一次来 AcuTherapy。",
+                    returningPatient: "回访贵宾",
+                    returningPatientDesc: "我之前在这里治疗过。",
+                    bookOnline: "在线预约",
+                    contactMethod: "首选联系方式",
+                    phoneMethod: "电话",
+                    textMethod: "短信",
+                    emailMethod: "邮件",
+                    selectLocation: "选择地点"
+                },
+                success: {
+                    message: "谢谢，{name}。我们的团队将评估您的症状，并很快通过 {phone} 与您联系以确认预约。",
+                    backHome: "返回首页"
+                }
+            },
+            acupuncturePage: {
+                title: "针灸疗法",
+                backLink: "返回服务",
+                intro: "针灸是传统中医（TCM）的基石。通过将细小的无菌针插入身体的特定穴位，我们刺激神经系统释放天然止痛药和免疫系统细胞。",
+                expect: { title: "治疗预期", text: "您的第一次治疗包括全面的咨询，我们将讨论您的病史和当前症状。治疗本身是放松的；许多患者在治疗期间会入睡。" },
+                styles: { title: "我们实践的风格", tcm: "TCM（传统中医）：专注于平衡气和血流。", trigger: "激痛点（干针）：针对紧绷的肌肉结节，立即缓解疼痛。", japanese: "日式：为敏感患者使用更细的针和更浅的插入。" },
+                faq: { title: "会痛吗？", text: "大多数人感觉不到疼痛。针只有头发那么细。您可能会感到轻微的钝痛或刺痛感，这是“得气”（能量到达）的迹象，表明治疗正在起作用。" },
+                cta: "预约您的疗程"
+            },
+            massagePage: {
+                title: "医疗推拿",
+                backLink: "返回服务",
+                intro: "与标准的水疗按摩不同，医疗推拿是基于结果的。我们专注于诊断和治疗特定的医疗状况和肌肉骨骼问题。",
+                conditions: { title: "治疗的状况", auto: "车祸受伤", rsi: "重复性劳损（RSI）", sports: "运动损伤", back: "慢性背痛" },
+                techniques: { title: "技术", text: "我们利用深层组织、肌筋膜释放和推拿（中医按摩）等方法来分解疤痕组织并恢复活动范围。" },
+                cta: { title: "恢复得更快。", button: "预约推拿疗法" }
+            },
+            cuppingPage: {
+                title: "拔罐疗法",
+                backLink: "返回服务",
+                intro: "拔罐是一种古老的疗法，将特殊的罐子放在皮肤上几分钟以产生吸力。这将停滞的血液通过吸力引至表面，并促进肌肉深处的血液循环。",
+                benefits: { title: "益处", pain: "缓解疼痛和肌肉放松", antiInflam: "抗炎作用", flow: "增加血流量", calm: "促进平静和幸福感" },
+                marks: { title: "关于“印记”", text: "拔罐通常会留下圆形的印记，颜色从浅红色到深紫色不等。与瘀伤不同，这些印记不痛，通常在3-7天内消退。" },
+                combinedText: "通常与针灸结合使用以获得最佳效果。",
+                ctaButton: "预约联合疗程"
+            },
+            autoInjuryPage: {
+                title: "车祸康复",
+                backLink: "返回首页",
+                intro: "从车祸中恢复需要专门的护理。我们为挥鞭伤、背痛和软组织损伤提供综合治疗计划。",
+                insurance: { title: "接受无过错保险", text: "我们处理您的无过错索赔的所有文书工作，以便您可以专注于康复。大多数治疗都是完全覆盖的，无需自付费用。" },
+                common: { title: "治疗的常见损伤", whiplash: "挥鞭伤和颈部僵硬", back: "下背痛", headaches: "头痛和偏头痛", shoulder: "肩部撞击综合征" },
+                cta: { title: "今天开始您的康复。", button: "预约评估" }
+            },
+            workersCompPage: {
+                title: "工伤赔偿",
+                backLink: "返回首页",
+                intro: "工作中受伤？我们是夏威夷授权的工伤赔偿提供者。我们专注于帮助您快速安全地康复，以便您可以重返工作岗位。",
+                insurance: { title: "我们处理您的索赔", text: "我们直接与您的个案经理和保险理赔员合作。所有必要的文件和进度报告均由我们的办公室处理。" },
+                common: { title: "常见工伤", strains: "重复性劳损 (RSI)", back: "举重引起的下背痛", carpal: "腕管综合症", slip: "滑倒和跌倒伤害" },
+                cta: { title: "今天开始您的康复。", button: "预约评估" }
+            },
+            ptsdPage: {
+                title: "PTSD与退伍军人护理",
+                backLink: "返回首页",
+                intro: "我们要荣幸地为退伍军人服务。我们的诊所专门提供创伤知情护理，以帮助处理PTSD和身体损伤。",
+                approach: { title: "我们的方法", text: "我们使用NADA方案（耳针）和身体穴位来帮助调节战斗或逃跑反应。这种非语言疗法对于那些不想立即谈论创伤的人来说是有效的。" },
+                va: { title: "VA社区护理网络", text: "我们是VA社区护理网络的自豪提供者。您的治疗可能会被完全覆盖。" },
+                cta: { title: "您不必独自承受。", button: "联系我们寻求支持" }
+            },
+            stressPage: {
+                title: "压力与焦虑管理",
+                backLink: "返回首页",
+                intro: "恢复您的情绪平衡。针灸是调节神经系统和降低皮质醇水平的有力工具。",
+                benefits: { title: "治疗的益处", relax: "疗程中的深度放松", sleep: "改善睡眠质量", heart: "减少心悸和紧绷感", focus: "思维清晰和专注" },
+                cta: { title: "今天让您的心灵平静下来。", button: "安排一个疗程" }
+            },
+            backPainPage: {
+                title: "背部和颈部疼痛缓解",
+                backLink: "返回首页",
+                intro: "慢性背痛和颈痛会使您的日常生活变得衰弱。我们的针灸治疗针对炎症和肌肉紧张的根本原因。",
+                how: { title: "我们如何治疗", acu: "针对性针灸释放激痛点", cup: "拔罐疗法改善血流", electro: "用于深度肌肉放松的电刺激" },
+                common: { title: "常见状况", sciatica: { title: "坐骨神经痛", desc: "神经受压引起的放射性腿痛。" }, whiplash: { title: "挥鞭伤", desc: "通常由车祸引起的颈部拉伤。" } },
+                cta: { title: "准备好过无痛生活了吗？", text: "今天预约您的初步咨询。", button: "预约" }
+            },
+            privacyPage: {
+                title: "隐私政策",
+                lastUpdated: "最后更新：2024年2月",
+                intro: "您的权利。我们的责任。\n\n我们理解关于您和您健康的医疗信息属于个人隐私，我们致力于保护这些信息。当您接受针灸治疗时，会生成治疗记录。通常，此记录包含您的治疗计划、病史和体检、您提供给我们的任何其他信息以及账单记录。此记录用作规划您治疗的基础；作为我们的针灸师和员工之间沟通的手段；以及评估和持续改进Acutherapy各诊所护理服务的工具。",
+                sections: [
+                    { heading: "个人信息的收集", content: "Acutherapy Clinics收集个人身份信息，例如您的电子邮件地址、姓名、家庭或工作地址或电话号码。我们还会收集非唯一的匿名人口统计信息，例如您的邮政编码、年龄、性别、偏好、兴趣和收藏。\n\n此外，本网站还会自动收集有关您计算机硬件和软件的信息。这些信息可能包括：您的IP地址、浏览器类型、域名、访问时间和引用网站地址。此信息用于服务的运营、保持服务质量以及提供有关本网站使用情况的一般统计数据。" },
+                    { heading: "外部链接", content: "Acutherapy Clinics鼓励您查看从本网站链接到的网站的隐私声明，以便您了解这些网站如何收集、使用和共享您的信息。Acutherapy Clinics不对任何其他网站上的隐私声明或其他内容负责。" }
+                ]
+            },
+            termsPage: {
+                title: "使用条款",
+                lastUpdated: "最后更新：2024年2月",
+                intro: "这些使用条款构成您（无论是个人还是代表实体）（“您”）与Acutherapy Clinics®（“我们”）之间关于您访问和使用acutherapy.com网站的具有法律约束力的协议。",
+                sections: [
+                    { heading: "协议条款", content: "通过访问本网站，您同意您已阅读、理解并同意受所有这些使用条款的约束。如果您不同意所有这些使用条款，则明确禁止您使用本网站，您必须立即停止使用。" },
+                    { heading: "知识产权", content: "除非另有说明，否则本网站是我们的专有财产，本网站上的所有源代码、数据库、功能、软件、网站设计、音频、视频、文本、照片和图形（统称为“内容”）以及其中包含的商标、服务标记和徽标（“标记”）均由我们拥有或控制或许可给我们。" },
+                    { heading: "医疗免责声明", content: "ACUTHERAPY CLINICS®不提供医疗建议。使用本网站不会建立任何持牌医疗专业人员/患者关系。内容无意作为医疗诊断或治疗的医疗建议或指导。" },
+                    { heading: "禁止活动", content: "除我们要使本网站可用的目的外，您不得出于任何目的访问或使用本网站。除了我们特别认可或批准的商业活动外，本网站不得用于任何商业活动。" },
+                    { heading: "管辖法律", content: "这些使用条款和您对本网站的使用受夏威夷州法律的管辖并根据其解释，适用于在夏威夷州内订立并完全履行的协议，不考虑其法律冲突原则。" },
+                    { heading: "联系我们", content: "为了解决有关本网站的投诉或接收有关使用本网站的更多信息，请通过以下方式联系我们：Acutherapy Clinics®, 1650 Liliha St Suite 208, Honolulu HI 96817." }
+                ]
+            },
+            sitemapPage: {
+                title: "网站地图",
+                subtitle: "网站结构概览"
+            },
+            locations: {
+                title: "分店地址",
+                honolulu: {
+                    name: "檀香山分店 (Liliha)",
+                    address: "1650 Liliha St, Suite 208, Honolulu, HI 96817",
+                    phone: "(808) 528-7177",
+                    fax: "(808) 212-9459",
+                    parking: "地理位置优越：位于 Liliha 街，交通便利，提供免费停车位。",
+                    mapLink: "https://maps.app.goo.gl/ZeCVHeCsdDXUHekR6",
+                    hours: "周一至周五: 8am - 5pm, 周六: 8am - 12am"
+                },
+                aiea: {
+                    name: "Aiea / 珍珠城分店",
+                    address: "98-211 Pali Momi St, Suite 604, Aiea, HI 96701",
+                    phone: "(808) 452-1900",
+                    fax: "(808) 452-1521",
+                    parking: "地理位置优越：位于 Pearl Ridge 办公楼，交通便捷，提供免费停车位。",
+                    mapLink: "https://maps.app.goo.gl/AZHxWvdNAjEVospUA",
+                    hours: "周一至周五: 8am - 5pm, 周六: 8am - 12am"
+                }
+            },
+            reviews: {
+                title: "患者反馈",
+                ratingLabel: "Google评分 5.0星",
+                list: [
+                    {
+                        text: "我患有慢性下背痛5年了。在 AcuTherapy 进行了仅仅3次针灸和拔罐治疗后，我感到紧张感明显释放。蔡医生太棒了！",
+                        author: "Michael T.",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Back Pain", "Honolulu", "General"]
+                    },
+                    {
+                        text: "檀香山最好的针灸诊所！工作人员非常友好，环境非常放松。对我的偏头痛和睡眠问题帮助很大。",
+                        author: "Sarah J.",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Migraine", "Sleep", "Honolulu", "General"]
+                    },
+                    {
+                        text: "AcuTherapy 是我焦虑症的救星。诊所很宁静，他们真的在倾听。每次治疗后我都感到脚踏实地和平静。强烈推荐！",
+                        author: "Emily R.",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Anxiety", "Mental Health", "General"]
+                    },
+                    {
+                        text: "我因为排球受了肩伤，连胳膊都抬不起来。在这里治疗几周后，我已经回到健身房举重了。非常感谢！",
+                        author: "David K.",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Sports Injury", "Shoulder Pain", "General"]
+                    },
+                    {
+                        text: "Aiea 分店太方便了。停车容易，办公室一尘不染。我因为坐骨神经痛去的，第一次就感到了缓解。",
+                        author: "Jason L.",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Aiea", "Back Pain", "Sciatica"]
+                    },
+                    {
+                        text: "他们完美地处理了我的无过错车祸索赔。我不用担心任何文件，只专注于康复。我的挥鞭伤已经好了。",
+                        author: "Amanda B.",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Auto Injury", "Whiplash", "Honolulu"]
+                    },
+                    {
+                        text: "Miyashiro 医生很棒。她帮助我治疗了工伤。非常专业和有爱心。",
+                        author: "Robert P.",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Work Injury", "Aiea", "General"]
+                    }
+                ]
+            }
+        }
+    }
+};
+
+const LanguageContext = createContext<{
+    lang: Language;
+    setLang: (lang: Language) => void;
+    t: (typeof translations)["EN"];
+}>({
+    lang: "EN",
+    setLang: () => { },
+    t: translations.EN,
+});
+
+export function LanguageProvider({ children, initialLanguage = "EN" }: { children: React.ReactNode, initialLanguage?: Language }) {
+    const [lang, setLang] = useState<Language>(initialLanguage);
+
+    return (
+        <LanguageContext.Provider value={{ lang, setLang, t: translations[lang] }}>
+            {children}
+        </LanguageContext.Provider>
+    );
+}
+
+export const useLanguage = () => useContext(LanguageContext);
