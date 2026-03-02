@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/LocalLink";
 import { Facebook, Instagram, Youtube } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -20,15 +20,15 @@ export default function Footer() {
                             {t.footer.brand.description}
                         </p>
                         <div className="flex space-x-4">
-                            <Link href="https://www.facebook.com/acutherapyclinic" target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-gold">
+                            <a href="https://www.facebook.com/acutherapyclinic" target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-gold">
                                 <Facebook className="h-5 w-5" />
-                            </Link>
-                            <Link href="https://www.instagram.com/acutherapyclinic/" target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-gold">
+                            </a>
+                            <a href="https://www.instagram.com/acutherapyclinic/" target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-gold">
                                 <Instagram className="h-5 w-5" />
-                            </Link>
-                            <Link href="https://www.youtube.com/@queenAffirmation" target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-gold">
+                            </a>
+                            <a href="https://www.youtube.com/@queenAffirmation" target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-gold">
                                 <Youtube className="h-5 w-5" />
-                            </Link>
+                            </a>
                         </div>
                     </div>
 

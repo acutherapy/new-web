@@ -10,7 +10,9 @@ export default function LanguageSwitcher() {
 
     const languages = [
         { code: "EN", label: "English" },
+        { code: "ES", label: "Español" },
         { code: "JA", label: "日本語" },
+        { code: "KO", label: "한국어" },
         { code: "ZH", label: "中文" }
     ];
 
@@ -37,8 +39,8 @@ export default function LanguageSwitcher() {
                             key={language.code}
                             onClick={() => handleSelect(language.code)}
                             className={`block w-full px-4 py-2 text-left text-sm ${lang === language.code
-                                    ? "bg-zinc-100 text-gold dark:bg-zinc-800"
-                                    : "text-zinc-700 hover:bg-zinc-50 dark:text-zinc-300 dark:hover:bg-zinc-800"
+                                ? "bg-zinc-100 text-gold dark:bg-zinc-800"
+                                : "text-zinc-700 hover:bg-zinc-50 dark:text-zinc-300 dark:hover:bg-zinc-800"
                                 }`}
                         >
                             {language.label}

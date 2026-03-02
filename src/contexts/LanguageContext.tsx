@@ -1,8 +1,10 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { useRouter, usePathname } from 'next/navigation';
+import { KO_TRANSLATIONS, ES_TRANSLATIONS } from './locales_ko_es';
 
-type Language = "EN" | "JA" | "ZH";
+type Language = "EN" | "JA" | "ZH" | "KO" | "ES";
 
 type Translations = {
     [key in Language]: {
@@ -342,7 +344,7 @@ type Translations = {
     };
 };
 
-const translations: Translations = {
+export const translations: Translations = {
     EN: {
         hero: {
             headline: "Restore Balance, Relieve Pain.",
@@ -713,6 +715,34 @@ const translations: Translations = {
                 title: "What Our Patients Say",
                 ratingLabel: "5.0 Stars on Google",
                 list: [
+                    {
+                        text: "Incredible experience! I suffered a disc herniation which resulted in nerve damage in my left leg. Doctor David helped relieve this with acupuncture. When he put the needles in me, I felt a muscle twitching sensation—it wasn’t painful at all. I honestly didn’t feel the true effects until two days later. I finally was able to surf again with no pain! My muscle knot released a lot of tension and my sciatica calmed down. I also experienced cognitive benefits; a lot of stress and anxiety lifted. I would recommend this treatment to anyone who has been suffering from mental and physical pain. The price is reasonable and so worth it!",
+                        author: "Brian Gorberg",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Back Pain", "Sciatica", "Stress & Anxiety", "General", "Honolulu", "Auto Injury"]
+                    },
+                    {
+                        text: "Treatment at Acutherapy is a reboot for my life. Stomach issues?! Gone. Sleep?! Much improved. Daily medication? Reduced. I feel really good and on the path to even better. Beyond acupuncture, Dr. Cai is a joy to be with and very generous sharing his meditation and healing expertise. I am deeply changed and forever grateful to him for helping me heal.",
+                        author: "Heather Henderson",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["General", "Sleep", "Stress & Anxiety", "Honolulu"]
+                    },
+                    {
+                        text: "Great Place…Very Helpful…Much Appreciated…VA recommended for injury…Thanx!!!",
+                        author: "Rington Kunst",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Veterans", "VA", "Honolulu", "Auto Injury"]
+                    },
+                    {
+                        text: "Great experience. I had been struggling with tension headaches for some time due to just being stressful too much. I was pretty skeptical about acupuncture at first but Dr. Cai really changed my view on things. Glad I gave it a try.",
+                        author: "Charles C.L.",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Stress & Anxiety", "General", "Honolulu", "Migraine"]
+                    },
                     {
                         text: "I suffered from chronic lower back pain for 5 years. After just 3 sessions of acupuncture and cupping at AcuTherapy, I felt a significant release of tension. Dr. Cai is amazing!",
                         author: "Michael T.",
@@ -1137,6 +1167,34 @@ const translations: Translations = {
                 ratingLabel: "Googleレビュー 5.0星",
                 list: [
                     {
+                        text: "信じられない素晴らしい体験でした！椎間板ヘルニアで左脚の神経を損傷していましたが、デビッド先生が鍼治療で緩和してくれました。針を刺した時、筋肉がピクピクする感覚がありましたが、全く痛くありませんでした。ついに痛みなしで再びサーフィンができるようになりました！筋肉のしこりがほぐれ、坐骨神経痛も落ち着きました。また、多くのストレスや不安が解消されるという精神的な効果も実感しました。心身の痛みで苦しんでいるすべての人にこの治療をお勧めします。価格も手頃で、それだけの価値があります！",
+                        author: "Brian Gorberg",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Back Pain", "Sciatica", "Stress & Anxiety", "General", "Honolulu", "Auto Injury"]
+                    },
+                    {
+                        text: "Acutherapyでの治療は、私の人生の再起動です。胃腸の問題？！なくなりました。睡眠？！ずっと良くなりました。毎日の薬？減りました。本当に気分が良く、さらに良くなる道を進んでいます。鍼治療にとどまらず、蔡先生と一緒にいるのは楽しく、瞑想や癒しの専門知識を惜しみなく共有してくれます。深く変わり、癒す手助けをしてくれた先生に永遠に感謝します。",
+                        author: "Heather Henderson",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["General", "Sleep", "Stress & Anxiety", "Honolulu"]
+                    },
+                    {
+                        text: "素晴らしい場所…とても親切…大変感謝しています…怪我の治療にVA（退役軍人省）から推奨されました…ありがとう！！！",
+                        author: "Rington Kunst",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Veterans", "VA", "Honolulu", "Auto Injury"]
+                    },
+                    {
+                        text: "素晴らしい経験でした。ストレスの多さから、しばらくの間緊張型頭痛に悩まされていました。最初は鍼治療にかなり懐疑的でしたが、蔡先生が本当に私の考えを変えてくれました。試してみて良かったです。",
+                        author: "Charles C.L.",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Stress & Anxiety", "General", "Honolulu", "Migraine"]
+                    },
+                    {
                         text: "5年間、慢性的な腰痛に悩まされていました。AcuTherapyで鍼とカッピングをたった3回受けただけで、緊張がかなり解けました。蔡先生は素晴らしいです！",
                         author: "Michael T.",
                         source: "Google Review",
@@ -1560,6 +1618,34 @@ const translations: Translations = {
                 ratingLabel: "Google评分 5.0星",
                 list: [
                     {
+                        text: "不可思议的体验！我在九月份遭受了椎间盘突出，导致左腿神经受损。大卫医生（Cai医生）用针灸帮我缓解了这一切。当他施针时，我感觉到肌肉在跳动，但根本不觉得痛。我终于又能没有任何疼痛地去冲浪了！我的肌肉结节释放了大量紧张感，坐骨神经痛也平静了下来。我还体验到了认知上的益处，很多压力和焦虑都消散了。我会向任何遭受精神和身体疼痛的人强烈推荐这种治疗。治疗价格非常合理，物超所值！",
+                        author: "Brian Gorberg",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Back Pain", "Sciatica", "Stress & Anxiety", "General", "Honolulu", "Auto Injury"]
+                    },
+                    {
+                        text: "在Acutherapy的治疗让我的人生重启。胃病？！没了。睡眠？！大大改善。日常用药？减少了。我感觉非常好，并正走在更好的路上。除了针灸，和Cai医生相处是很愉快的，并且他非常慷慨地分享他的冥想和疗愈专业知识。我发生了深刻的改变，永远感谢他帮助我痊愈。",
+                        author: "Heather Henderson",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["General", "Sleep", "Stress & Anxiety", "Honolulu"]
+                    },
+                    {
+                        text: "非常棒的地方……非常有帮助……非常感激……VA（退伍军人事务部）推荐来此治疗伤痛……谢谢！！！",
+                        author: "Rington Kunst",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Veterans", "VA", "Honolulu", "Auto Injury"]
+                    },
+                    {
+                        text: "很棒的体验。由于压力太大，我已经与紧张性头痛斗争了一段时间。起初我对针灸非常怀疑，但蔡（Cai）医生真的改变了我的看法。很高兴我尝试了。",
+                        author: "Charles C.L.",
+                        source: "Google Review",
+                        rating: 5,
+                        categories: ["Stress & Anxiety", "General", "Honolulu", "Migraine"]
+                    },
+                    {
                         text: "我患有慢性下背痛5年了。在 AcuTherapy 进行了仅仅3次针灸和拔罐治疗后，我感到紧张感明显释放。蔡医生太棒了！",
                         author: "Michael T.",
                         source: "Google Review",
@@ -1611,24 +1697,48 @@ const translations: Translations = {
                 ]
             }
         }
-    }
+    },
+    KO: KO_TRANSLATIONS as any,
+    ES: ES_TRANSLATIONS as any
 };
 
 const LanguageContext = createContext<{
     lang: Language;
+    language: Language; // Added for backwards compatibility
     setLang: (lang: Language) => void;
     t: (typeof translations)["EN"];
 }>({
     lang: "EN",
+    language: "EN",
     setLang: () => { },
     t: translations.EN,
 });
 
 export function LanguageProvider({ children, initialLanguage = "EN" }: { children: React.ReactNode, initialLanguage?: Language }) {
-    const [lang, setLang] = useState<Language>(initialLanguage);
+    const [lang, setLangState] = useState<Language>(initialLanguage);
+    const router = useRouter();
+    const pathname = usePathname();
+
+    useEffect(() => {
+        setLangState(initialLanguage);
+    }, [initialLanguage]);
+
+    const setLang = (newLang: Language) => {
+        setLangState(newLang);
+        if (pathname) {
+            // pathname is like /en/services or /zh/contact
+            const parts = pathname.split('/');
+            if (parts.length > 1 && ['en', 'zh', 'ja', 'ko', 'es'].includes(parts[1].toLowerCase())) {
+                parts[1] = newLang.toLowerCase();
+            } else {
+                parts.splice(1, 0, newLang.toLowerCase());
+            }
+            router.push(parts.join('/'));
+        }
+    };
 
     return (
-        <LanguageContext.Provider value={{ lang, setLang, t: translations[lang] }}>
+        <LanguageContext.Provider value={{ lang, language: lang, setLang, t: translations[lang] }}>
             {children}
         </LanguageContext.Provider>
     );

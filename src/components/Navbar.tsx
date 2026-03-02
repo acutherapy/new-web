@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/LocalLink";
 import { useState } from "react";
 import { Menu, X, ChevronDown, Phone, Calendar } from "lucide-react";
 import LanguageSwitcher from "./LanguageSwitcher";

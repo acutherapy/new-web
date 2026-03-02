@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/LocalLink";
 import { ArrowRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -8,9 +8,8 @@ export default function Hero() {
     const { t } = useLanguage();
 
     return (
-        <div className="relative isolate overflow-hidden bg-zinc-900 py-24 sm:py-32">
-            {/* Background Image */}
-            <div className="absolute inset-0 -z-10 h-full w-full bg-gradient-to-br from-teal-900/30 to-black/10" />
+        <div className="relative isolate overflow-hidden py-24 sm:py-32">
+            {/* Background Image/Video is below, filter overlay removed for clarity */}
             {/* Video Background */}
             <video
                 autoPlay

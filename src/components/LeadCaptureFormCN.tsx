@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import Link from 'next/link';
+import Link from "@/components/LocalLink";
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 
 export default function LeadCaptureFormCN() {

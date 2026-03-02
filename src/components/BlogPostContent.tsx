@@ -1,7 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/contexts/LanguageContext";
-import Link from "next/link";
+import Link from "@/components/LocalLink";
 import { ArrowLeft, Calendar } from "lucide-react";
 import { BlogPost } from "@/lib/blog";
 
